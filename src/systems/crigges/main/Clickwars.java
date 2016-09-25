@@ -100,13 +100,16 @@ public class Clickwars {
 		comboBox.setModel(new DefaultComboBoxModel(InterfaceSize.values()));
 		
 		JLabel lblInterfaceSize = new JLabel("Interface Size");
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Traits", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 721, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 690, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblProfession)
@@ -114,12 +117,13 @@ public class Clickwars {
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblInterfaceSize, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(727, Short.MAX_VALUE))
+								.addComponent(lblInterfaceSize, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 721, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(236, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblProfession)
@@ -128,10 +132,43 @@ public class Clickwars {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(professionBox, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+					.addGap(18)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(303))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+					.addContainerGap())
 		);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Crigges\\Desktop\\traitimg\\crig53.png"));
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("C:\\Users\\Crigges\\Desktop\\traitimg\\crig18.png"));
+		
+		JLabel label_1 = new JLabel("");
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
+						.addComponent(label, GroupLayout.PREFERRED_SIZE, 647, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 647, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(18, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		buttonSlot1 = new JButton("");
 		buttonSlot1.addActionListener(new ActionListener() {
