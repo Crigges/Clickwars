@@ -49,17 +49,6 @@ public class Clickwars {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws AWTException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		Robot r = new Robot();
-		long time = System.currentTimeMillis();
-		BufferedImage img = r.createScreenCapture(new Rectangle(0, 0, 3840, 2160));
-		for(int y = 0; y < img.getHeight(); y++){
-			for (int x = 0; x < img.getWidth(); x++) {
-				for(int i = 0; i<5; i++){
-					int wurst = img.getRGB(x, y);
-				}
-			}
-		}
-		System.out.println(System.currentTimeMillis() - time);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
