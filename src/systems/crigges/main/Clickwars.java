@@ -28,6 +28,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Clickwars {
 
@@ -36,6 +38,7 @@ public class Clickwars {
 	private JButton buttonSlot2;
 	private JButton buttonSlot4;
 	private JButton buttonSlot5;
+	private JComboBox professionBox;
 
 	/**
 	 * Launch the application.
@@ -82,16 +85,21 @@ public class Clickwars {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1485, 890);
+		frame.setBounds(100, 100, 994, 890);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Skills", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(Profession.values()));
+		professionBox = new JComboBox();
+		professionBox.setModel(new DefaultComboBoxModel(Profession.values()));
 		
 		JLabel lblProfession = new JLabel("Profession");
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(InterfaceSize.values()));
+		
+		JLabel lblInterfaceSize = new JLabel("Interface Size");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -99,39 +107,94 @@ public class Clickwars {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 721, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblProfession)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblProfession)
+								.addComponent(professionBox, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblInterfaceSize, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(727, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblProfession)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblProfession)
+						.addComponent(lblInterfaceSize))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(professionBox, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(303))
 		);
 		
 		buttonSlot1 = new JButton("");
+		buttonSlot1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
+				Skill res = d.openDialog();
+				if(res != null){
+					buttonSlot1.setIcon(new ImageIcon(res.getResource()));
+				}
+			}
+		});
 		buttonSlot1.setBorder(null);
 		buttonSlot1.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 		
 		buttonSlot2 = new JButton("");
+		buttonSlot2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 2);
+				Skill res = d.openDialog();
+				if(res != null){
+					buttonSlot2.setIcon(new ImageIcon(res.getResource()));
+				}
+			}
+		});
 		buttonSlot2.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 		buttonSlot2.setBorder(null);
 		
 		JButton buttonSlot3 = new JButton("");
+		buttonSlot3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 3);
+				Skill res = d.openDialog();
+				if(res != null){
+					buttonSlot3.setIcon(new ImageIcon(res.getResource()));
+				}
+			}
+		});
 		buttonSlot3.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 		buttonSlot3.setBorder(null);
 		
 		buttonSlot4 = new JButton("");
+		buttonSlot4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 4);
+				Skill res = d.openDialog();
+				if(res != null){
+					buttonSlot4.setIcon(new ImageIcon(res.getResource()));
+				}
+			}
+		});
 		buttonSlot4.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 		buttonSlot4.setBorder(null);
 		
 		buttonSlot5 = new JButton("");
+		buttonSlot5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 5);
+				Skill res = d.openDialog();
+				if(res != null){
+					buttonSlot5.setIcon(new ImageIcon(res.getResource()));
+				}
+			}
+		});
 		buttonSlot5.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 		buttonSlot5.setBorder(null);
 		GroupLayout gl_panel = new GroupLayout(panel);

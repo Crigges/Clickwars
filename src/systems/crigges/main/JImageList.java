@@ -12,7 +12,7 @@ import javax.swing.ListSelectionModel;
 public class JImageList extends JList<Icon>{
 	private static final long serialVersionUID = 1L;
 	private SkillSet model = null;
-	private int currentFrameWidth = 200;
+	private int currentFrameWidth = 530;
 	
 	public JImageList() {
 		super();
@@ -24,7 +24,7 @@ public class JImageList extends JList<Icon>{
 		currentFrameWidth = frameWidth;
 		if(model != null){
 			int width = model.getDefaultImage().getIconWidth();
-			int breakAt = (frameWidth - 20) / (width + 2);
+			int breakAt = (frameWidth) / (width + 2);
 			int rowCount = (model.getSize() / breakAt) + 1;
 			setVisibleRowCount(rowCount);
 		}
@@ -45,6 +45,7 @@ public class JImageList extends JList<Icon>{
 		}else{
 			throw new RuntimeException("An error occured: \"Error\" for reason: \"Error\"");
 		}
+		updateUI();
 	}
 	
 	@Override
