@@ -1,15 +1,18 @@
 package systems.crigges.main;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
-public class SkillFactory {
+public class ResourceFactory {
 	private static final HashMap<Profession, URL[]> healSkills = new HashMap<>();
 	private static final HashMap<Profession, URL[]> utilSkills = new HashMap<>();
 	private static final HashMap<Profession, URL[]> eliteSkills = new HashMap<>();
+	private static final HashMap<Profession, URL[]> traitlines = new HashMap<>();
 	
 	private static final boolean init = init();
 	
@@ -32,21 +35,43 @@ public class SkillFactory {
 	public static Skill getSkill(Profession prof, int index, int slot) {
 		URL res;
 		if(slot == 1){
-			res = healSkills.get(prof)[index];
+			res = healSkills.get(prof)[healSkills.get(prof).length - 1 - index];
 		}else if(slot == 5){
-			res = eliteSkills.get(prof)[index];
+			res = eliteSkills.get(prof)[eliteSkills.get(prof).length - 1 - index];
 		}else{
-			res = utilSkills.get(prof)[index];
+			res = utilSkills.get(prof)[utilSkills.get(prof).length - 1- index];
 		}
-		System.out.println(index);
 		return new Skill(res, index);
 	}
 	
+	public static int getTraitlineCount(Profession prof, int slot) {
+		if(slot == 3){
+			return 6;
+		}else{
+			return 5;
+		}
+	}
+	
+	public static Traitline getTraitline(Profession prof, int index, int slot) {
+		URL res;
+		if(slot != 3){
+			if(index >= 4){
+				res = traitlines.get(prof)[traitlines.get(prof).length - 2 - index];
+			}else{
+				res = traitlines.get(prof)[traitlines.get(prof).length - 1 - index];
+			}
+			
+		}else{
+			res = traitlines.get(prof)[traitlines.get(prof).length - 1 - index];
+		}
+		return new Traitline(res, index);
+	}
+	
+	public static Trait getClearTrait(){
+		return new Trait(getResource("/other/notrait.png"), -1);
+	}
+	
 	private static void initChrono() {
-//		skillCountHeal.put(Profession.Chronomancer, 5);
-//		skillCountUtil.put(Profession.Chronomancer, 24);
-//		skillCountElite.put(Profession.Chronomancer, 4);
-		
 		URL[] chronoHeals = new URL[5];
 		chronoHeals[0] = getResource("/chrono/Signet_of_the_Ether.png");
 		chronoHeals[1] = getResource("/chrono/Mantra_of_Recovery.png");
@@ -90,14 +115,19 @@ public class SkillFactory {
 		chronoElite[3] = getResource("/chrono/Time_Warp.png");
 		eliteSkills.put(Profession.Chronomancer, chronoElite);
 
-
+		URL[] chronoTraitlines = new URL[6];
+		chronoTraitlines[0] = getResource("/chrono/chaos.png");
+		chronoTraitlines[1] = getResource("/chrono/chrono.png");
+		chronoTraitlines[2] = getResource("/chrono/dueling.png");
+		chronoTraitlines[3] = getResource("/chrono/illusions.png");
+		chronoTraitlines[4] = getResource("/chrono/domination.png");
+		chronoTraitlines[5] = getResource("/chrono/inspiration.png");
+		traitlines.put(Profession.Chronomancer, chronoTraitlines);
 		
 	}
 	
 	private static URL getResource(String path){
-		return SkillFactory.class.getResource(path);
+		return ResourceFactory.class.getResource(path);
 	}
 
-	
-	
 }

@@ -21,7 +21,7 @@ public class SkillSelectDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private Skill result;
-	private JImageList list;
+	private SkillSetList list;
 
 	/**
 	 * Launch the application.
@@ -55,7 +55,7 @@ public class SkillSelectDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		list = new JImageList();
+		list = new SkillSetList();
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)

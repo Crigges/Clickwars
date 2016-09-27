@@ -9,12 +9,12 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-public class JImageList extends JList<Icon>{
+public class SkillSetList extends JList<Icon>{
 	private static final long serialVersionUID = 1L;
 	private SkillSet model = null;
 	private int currentFrameWidth = 530;
 	
-	public JImageList() {
+	public SkillSetList() {
 		super();
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayoutOrientation(JList.HORIZONTAL_WRAP);

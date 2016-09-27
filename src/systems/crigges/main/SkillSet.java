@@ -56,12 +56,12 @@ public class SkillSet extends AbstractListModel<Icon> {
 
 	@Override
 	public int getSize() {
-		return SkillFactory.getSkillCount(prof, slot);
+		return ResourceFactory.getSkillCount(prof, slot);
 	}
 
 	@Override
 	public Icon getElementAt(int index) {
-		return SkillFactory.getSkill(prof, index, slot);
+		return ResourceFactory.getSkill(prof, index, slot);
 	}
 	
 }
