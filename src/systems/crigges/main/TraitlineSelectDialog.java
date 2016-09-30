@@ -20,7 +20,7 @@ import javax.swing.Icon;
 
 public class TraitlineSelectDialog extends JDialog {
 
-	private final ScrollPane contentPanel = new ScrollPane();
+	private final ScrollPane contentPanel = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
 	private Traitline result;
 	private TraitlineSetList list;
 
@@ -45,7 +45,7 @@ public class TraitlineSelectDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public TraitlineSelectDialog(JFrame parent, Profession prof, int slot) {
-		super(parent, "Select Skill", true);
+		super(parent, "Select Traitline", true);
 		//Remove java artifacts
 		Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
 		setIconImage(icon);
