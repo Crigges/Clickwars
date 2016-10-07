@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -19,6 +21,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -37,6 +40,9 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -48,6 +54,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Clickwars {
 
@@ -70,7 +83,12 @@ public class Clickwars {
 	private JPanel panel1;
 	private JPanel panel2;
 	private JPanel panel;
-	private JTextField textField;
+	private JTextField nameField;
+	private final Action action = new SwingAction();
+	private JTable profileTable;
+	private JButton btnNewButton;
+	private JButton button;
+	private JButton button_1;
 
 
 	/**
@@ -82,6 +100,17 @@ public class Clickwars {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws AWTException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		//fixing dpi scaling
+		String[] iconOpts = {"OptionPane.errorIcon", 
+		  "OptionPane.informationIcon", 
+		  "OptionPane.warningIcon", 
+		  "OptionPane.questionIcon"};
+		for (String key : iconOpts) {
+		  ImageIcon icon = (ImageIcon) UIManager.get(key);
+		  Image img = icon.getImage();
+		  ImageIcon newIcon = new ImageIcon(img.getScaledInstance(img.getWidth(null), img.getHeight(null), 0));
+		  UIManager.put(key, newIcon);
+		}
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -89,6 +118,7 @@ public class Clickwars {
 					Clickwars window = new Clickwars();
 					window.frame.setVisible(true);
 					window.panel3.updateUI();
+					//window.setEditEnabeld(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -101,6 +131,36 @@ public class Clickwars {
 	 */
 	public Clickwars() {
 		initialize();
+	}
+	
+	private Component[] getComponents(Component container) {
+        ArrayList<Component> list = null;
+
+        try {
+            list = new ArrayList<Component>(Arrays.asList(
+                  ((Container) container).getComponents()));
+            for (int index = 0; index < list.size(); index++) {
+                for (Component currentComponent : getComponents(list.get(index))) {
+                    list.add(currentComponent);
+                }
+            }
+        } catch (ClassCastException e) {
+            list = new ArrayList<Component>();
+        }
+
+        return list.toArray(new Component[list.size()]);
+    }
+	
+	private void setEditEnabeld(boolean enable){
+		for(Component p : getComponents(panel1)){
+			p.setEnabled(enable);
+		}
+		for(Component p : getComponents(panel2)){
+			p.setEnabled(enable);
+		}
+		for(Component p : getComponents(panel3)){
+			p.setEnabled(enable);
+		}
 	}
 
 	/**
@@ -316,19 +376,19 @@ public class Clickwars {
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
 						.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE)
-					.addGap(494))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+					.addGap(447))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(157)
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -336,34 +396,90 @@ public class Clickwars {
 					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		nameField = new JTextField();
+		nameField.setColumns(10);
 		
 		JButton btnSave = new JButton("Save");
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = profileTable.getSelectedRow();
+				if(row == -1){
+					JOptionPane.showMessageDialog(frame, "Select a profile to delete!");
+				}else{
+					int res = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+					if(res == JOptionPane.OK_OPTION){
+						DefaultTableModel model = (DefaultTableModel)profileTable.getModel();
+						model.removeRow(profileTable.getSelectedRow());
+					}
+				}
+			}
+		});
+		
+		JButton btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(nameField.getText().equals("")){
+					JOptionPane.showMessageDialog(frame, "Enter a profile Name!");
+				}else{
+					DefaultTableModel model = (DefaultTableModel)profileTable.getModel();
+					Object[] o = new Object[3];
+					o[0] = nameField.getText();
+					o[1] = professionBox.getSelectedItem();
+					o[2] = hotkeyButton.getText();
+					model.addRow(o);
+				}
+			}
+		});
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnDelete)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnSave)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(12)
+							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNew, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSave)
-						.addComponent(btnDelete)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(761, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnSave, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnDelete)
+							.addComponent(btnNew)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+					.addContainerGap())
 		);
+		
+		profileTable = new JTable();
+		profileTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Name", "Profession", "Hotkey"
+			}
+		));
+		profileTable.getColumnModel().getColumn(0).setPreferredWidth(115);
+		profileTable.getColumnModel().getColumn(1).setPreferredWidth(119);
+		profileTable.getColumnModel().getColumn(2).setPreferredWidth(116);
+		scrollPane.setViewportView(profileTable);
 		panel.setLayout(gl_panel);
 		
 		traitline1 = new BackgroundPanel((Paint) null);
@@ -372,57 +488,36 @@ public class Clickwars {
 		traitline1.setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
 		traitline1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
-				Traitline t = diag.openDialog();
-				if(t != null){
-					traitline1.setImage(t.getImage());
-				}
-			}
-			
-		});
-		lblNewLabel.setBorder(null);
-		lblNewLabel.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		lblNewLabel.setBounds(36, 16, 128, 104);
-		traitline1.add(lblNewLabel);
-		
 		traitline2 = new BackgroundPanel((Paint) null);
 		traitline2.setImageAlignmentX(0.0f);
 		traitline2.setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
 		traitline2.setImageAlignmentY(0.0f);
 		
-		JLabel label = new JLabel("");
-		label.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 2);
-				Traitline t = diag.openDialog();
-				if(t != null){
-					traitline2.setImage(t.getImage());
-				}
+		button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
+ 				Traitline t = diag.openDialog();
+ 				if(t != null){
+ 					traitline2.setImage(t.getImage());
+ 				}
 			}
-			
 		});
-		label.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		label.setBorder(null);
+		button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
+		button.setContentAreaFilled(false);
+		button.setBorder(null);
 		GroupLayout gl_traitline2 = new GroupLayout(traitline2);
 		gl_traitline2.setHorizontalGroup(
 			gl_traitline2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_traitline2.createSequentialGroup()
-					.addGap(37)
-					.addComponent(label, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(516, Short.MAX_VALUE))
+					.addGap(50)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(492, Short.MAX_VALUE))
 		);
 		gl_traitline2.setVerticalGroup(
 			gl_traitline2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_traitline2.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		traitline2.setLayout(gl_traitline2);
@@ -432,35 +527,32 @@ public class Clickwars {
 		traitline3.setImageAlignmentY(0.0f);
 		traitline3.setImageAlignmentX(0.0f);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
+		button_1 = new JButton("");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 3);
-				Traitline t = diag.openDialog();
-				if(t != null){
-					traitline3.setImage(t.getImage());
-				}
+ 				Traitline t = diag.openDialog();
+ 				if(t != null){
+ 					traitline3.setImage(t.getImage());
+ 				}
 			}
-			
 		});
-		label_1.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		label_1.setBorder(null);
+		button_1.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
+		button_1.setContentAreaFilled(false);
+		button_1.setBorder(null);
 		GroupLayout gl_traitline3 = new GroupLayout(traitline3);
 		gl_traitline3.setHorizontalGroup(
 			gl_traitline3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_traitline3.createSequentialGroup()
-					.addGap(42)
-					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(511, Short.MAX_VALUE))
+					.addGap(51)
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(491, Short.MAX_VALUE))
 		);
 		gl_traitline3.setVerticalGroup(
-			gl_traitline3.createParallelGroup(Alignment.TRAILING)
+			gl_traitline3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_traitline3.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		traitline3.setLayout(gl_traitline3);
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
@@ -470,9 +562,12 @@ public class Clickwars {
 					.addContainerGap()
 					.addGroup(gl_panel3.createParallelGroup(Alignment.LEADING)
 						.addComponent(traitline1, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
-						.addComponent(traitline2, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
-						.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE))
+						.addComponent(traitline2, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(16, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel3.createSequentialGroup()
+					.addContainerGap(60, Short.MAX_VALUE)
+					.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_panel3.setVerticalGroup(
 			gl_panel3.createParallelGroup(Alignment.LEADING)
@@ -485,8 +580,61 @@ public class Clickwars {
 					.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(19, Short.MAX_VALUE))
 		);
+		
+		btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+ 				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
+ 				Traitline t = diag.openDialog();
+ 				if(t != null){
+ 					traitline1.setImage(t.getImage());
+ 				}
+			}
+		});
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorder(null);
+		btnNewButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
+		btnNewButton.setBounds(51, 0, 139, 136);
+		traitline1.add(btnNewButton);
 		panel3.setLayout(gl_panel3);
 		frame.getContentPane().setLayout(groupLayout);
+		
+		traitline1Traits = new JButton[9];
+		traitline2Traits = new JButton[9];
+		traitline3Traits = new JButton[9];
+		int i = 0;
+		int startX = 220;
+		int stepX = 160;
+		int startY = 10;
+		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
+			for(int y = startY; y<40*3 + startY; y+= 40) {
+				traitline1Traits[i] = new JButton(ResourceFactory.getClearTrait());
+				traitline1Traits[i].setBorder(null);
+				traitline1.add(traitline1Traits[i]);
+				traitline1Traits[i].setBounds(x, y, 32, 32);
+				i++;
+			}
+		}
+		i = 0;
+		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
+			for(int y = startY; y<40*3 + startY; y+= 40) {
+				traitline2Traits[i] = new JButton(ResourceFactory.getClearTrait());
+				traitline2Traits[i].setBorder(null);
+				traitline2.add(traitline2Traits[i]);
+				traitline2Traits[i].setBounds(x, y, 32, 32);
+				i++;
+			}
+		}
+		i = 0;
+		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
+			for(int y = startY; y<40*3 + startY; y+= 40) {
+				traitline3Traits[i] = new JButton(ResourceFactory.getClearTrait());
+				traitline3Traits[i].setBorder(null);
+				traitline3.add(traitline3Traits[i]);
+				traitline3Traits[i].setBounds(x, y, 32, 32);
+				i++;
+			}
+		}
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -494,7 +642,20 @@ public class Clickwars {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		mnNewMenu.add(mntmExit);
 		
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
