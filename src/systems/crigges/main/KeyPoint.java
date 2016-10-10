@@ -6,42 +6,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class KeyPoint{
-	private static final int tollerance = 10;
+	private static final int tollerance = 5;
 	
-	private Point point;
-	private Color color;
-	
-	public KeyPoint(Point p, Color color){
-		this.point = p;
-		this.color = color;
-	}
+	private int x, y;
+	private int r, b, g;
 	
 	public KeyPoint(int x, int y, int r, int g, int b){
-		this.point = new Point(x, y);
-		this.color = new Color(r, g, b);
+		this.x = x;
+		this.y = y;
+		this.r = r;
+		this.g = g;
+		this.b = b;
 	}
 	
 	public boolean check(Color b){
 		return check(b, tollerance);
 	}
 	
-	public boolean check(Color b, int tollerance){
-		Color a  = this.color;
-		return (Math.abs(a.getRed() - b.getRed()) <= tollerance) 
-				&& (Math.abs(a.getGreen() - b.getGreen()) <= tollerance) 
-				&& (Math.abs(a.getBlue() - b.getBlue()) <= tollerance);
+	public boolean check(Color c, int tollerance){
+		return (Math.abs(r - c.getRed()) <= tollerance) 
+				&& (Math.abs(g - c.getGreen()) <= tollerance) 
+				&& (Math.abs(b - c.getBlue()) <= tollerance);
 	}
 	
-	public int getRGB(){
-		return color.getRGB();
+	public int getX(){
+		return x;
 	}
 	
-	public Point getPoint(){
-		return point;
+	public int getY(){
+		return y;
 	}
 	
 	public static void main(String[] args) {
-		KeyPoint p = new KeyPoint(null, Color.BLACK);
+		KeyPoint p = null;
 		System.out.println(Color.BLACK);
 		System.out.println(Color.BLACK.brighter());
 		System.out.println(p.check(Color.BLACK));

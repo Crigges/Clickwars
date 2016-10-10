@@ -25,7 +25,7 @@ public class KeypointDetection {
 		BufferedImage img = detec.robot.createScreenCapture(detec.screenSize);
 		long time = System.currentTimeMillis();
 		for(int i = 0; i < 100; i++){
-			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Larger), img));
+			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Larger)));
 		}
 		System.out.println(System.currentTimeMillis() - time);
 	}
@@ -40,29 +40,12 @@ public class KeypointDetection {
 		}
 	}
 	
-	public Point find(ArrayList<KeyPoint> points, BufferedImage img){
-		for(int y = img.getHeight() - 1; y >= 0; y--){
-			for (int x = 0; x < img.getWidth(); x++) {
-				boolean found = true;
-				for(KeyPoint p : points){
-					if(x + p.getPoint().x >= img.getWidth() || y + p.getPoint().y >= img.getHeight()){
-						found = false;
-						break;
-					}
-					if(!p.check(new Color(img.getRGB(x + p.getPoint().x, y + p.getPoint().y)))){
-						found = false;
-						break;
-					}
-				}
-				if(found){
-					return new Point(x, y);
-				}
-			}
-		}
-		return null;
+	public Point find(ArrayList<KeyPoint> points){
+		BufferedImage img = robot.createScreenCapture(screenSize);
+		return findThreaded(points, img);
 	}
 	
-	public Point findThreaded(ArrayList<KeyPoint> points, BufferedImage img){
+	private Point findThreaded(ArrayList<KeyPoint> points, BufferedImage img){
 		globalFound = null;
 		Future f1 = pool.submit(new FindingTask(0, 0, img.getWidth() / 2, img.getHeight() / 2, points, img));
 		Future f2 = pool.submit(new FindingTask(img.getWidth() / 2, 0, img.getWidth() / 2, img.getHeight() / 2, points, img));
@@ -80,7 +63,7 @@ public class KeypointDetection {
 	}
 	
 	
-	class FindingTask implements Runnable{
+	private class FindingTask implements Runnable{
 		private int startX,startY, width, height;
 		private ArrayList<KeyPoint> points;
 		private BufferedImage img;
@@ -97,6 +80,8 @@ public class KeypointDetection {
 		
 		@Override
 		public void run() {
+			int imgWidth = img.getWidth();
+			int imgHeight = img.getHeight();
 			for(int y = startY + height - 1; y >= startY; y--){
 				for (int x = startX; x < startX + width; x++) {
 					if(globalFound != null){
@@ -104,11 +89,11 @@ public class KeypointDetection {
 					}
 					boolean found = true;
 					for(KeyPoint p : points){
-						if(x + p.getPoint().x >= img.getWidth() || y + p.getPoint().y >= img.getHeight()){
+						if(x + p.getX() >= imgWidth || y + p.getY() >= imgHeight){
 							found = false;
 							break;
 						}
-						if(!p.check(new Color(img.getRGB(x + p.getPoint().x, y + p.getPoint().y)))){
+						if(!p.check(new Color(img.getRGB(x + p.getX(), y + p.getY())))){
 							found = false;
 							break;
 						}
