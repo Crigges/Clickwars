@@ -25,11 +25,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -45,6 +50,8 @@ import java.awt.Container;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
@@ -89,6 +96,7 @@ public class Clickwars {
 	private JButton btnNewButton;
 	private JButton button;
 	private JButton button_1;
+	private Profile currentProfile;
 
 
 	/**
@@ -118,7 +126,7 @@ public class Clickwars {
 					Clickwars window = new Clickwars();
 					window.frame.setVisible(true);
 					window.panel3.updateUI();
-					//window.setEditEnabeld(false);
+					window.setEditEnabeld(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -180,7 +188,7 @@ public class Clickwars {
 			e1.printStackTrace();
 		}
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1679, 1004);
+		frame.setBounds(100, 100, 1259, 938);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel2 = new JPanel();
@@ -325,23 +333,35 @@ public class Clickwars {
 		});
 		
 		JLabel lblHotkeytoapply = new JLabel("Hotkey");
+		
+		JLabel lblLabel = new JLabel("Advanced Settings");
+		
+		JButton button_2 = new JButton("???");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout gl_panel1 = new GroupLayout(panel1);
 		gl_panel1.setHorizontalGroup(
 			gl_panel1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(professionBox, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblProfession))
+						.addComponent(lblProfession)
+						.addComponent(professionBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblInterfaceSize))
+						.addComponent(lblInterfaceSize)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHotkeytoapply)
-						.addComponent(hotkeyButton, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(101, Short.MAX_VALUE))
+						.addComponent(hotkeyButton, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHotkeytoapply))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+					.addGap(33))
 		);
 		gl_panel1.setVerticalGroup(
 			gl_panel1.createParallelGroup(Alignment.LEADING)
@@ -350,13 +370,15 @@ public class Clickwars {
 					.addGroup(gl_panel1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblProfession)
 						.addComponent(lblInterfaceSize)
-						.addComponent(lblHotkeytoapply))
+						.addComponent(lblHotkeytoapply)
+						.addComponent(lblLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(professionBox, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(hotkeyButton, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-					.addContainerGap(74, Short.MAX_VALUE))
+						.addComponent(hotkeyButton, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		panel1.setLayout(gl_panel1);
 		
@@ -376,8 +398,8 @@ public class Clickwars {
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
 						.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
-					.addGap(447))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -393,13 +415,11 @@ public class Clickwars {
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 488, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(64, Short.MAX_VALUE))
+					.addContainerGap(71, Short.MAX_VALUE))
 		);
 		
 		nameField = new JTextField();
 		nameField.setColumns(10);
-		
-		JButton btnSave = new JButton("Save");
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
@@ -429,6 +449,7 @@ public class Clickwars {
 					o[1] = professionBox.getSelectedItem();
 					o[2] = hotkeyButton.getText();
 					model.addRow(o);
+					profileTable.getSelectionModel().setSelectionInterval(0, model.getRowCount() - 1);
 				}
 			}
 		});
@@ -438,37 +459,39 @@ public class Clickwars {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(12)
-							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNew, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
+							.addComponent(btnNew, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnSave, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnDelete)
-							.addComponent(btnNew)))
+							.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnDelete))
+						.addComponent(btnNew))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		profileTable = new JTable();
+		profileTable = new JTable() {
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+	    };
+	    profileTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		profileTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -476,6 +499,20 @@ public class Clickwars {
 				"Name", "Profession", "Hotkey"
 			}
 		));
+
+		profileTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				DefaultListSelectionModel mod = (DefaultListSelectionModel) e.getSource();
+				if(!e.getValueIsAdjusting()){
+					setEditEnabeld(mod.getMinSelectionIndex() != -1);
+					if(mod.getMinSelectionIndex() != -1){
+						System.out.println(mod.getMinSelectionIndex());
+					}
+				}
+			}
+		});
 		profileTable.getColumnModel().getColumn(0).setPreferredWidth(115);
 		profileTable.getColumnModel().getColumn(1).setPreferredWidth(119);
 		profileTable.getColumnModel().getColumn(2).setPreferredWidth(116);

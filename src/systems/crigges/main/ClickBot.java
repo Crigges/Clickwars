@@ -39,7 +39,6 @@ public class ClickBot {
 				fp.translate(skillOffset.x, skillOffset.y);
 				robot.mouseMove(fp.x, fp.y);
 				click();
-				delay();
 			}
 			slot++;
 		}
