@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -64,6 +65,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Image;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JTable;
@@ -188,7 +190,16 @@ public class Clickwars {
 			e1.printStackTrace();
 		}
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1259, 938);
+		//remove window icon
+		Image icon = null;
+		try {
+			icon = ImageIO.read(ResourceFactory.getResource("/other/gw2icon.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		frame.setIconImage(icon);
+		frame.setBounds(100, 100, 1227, 899);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel2 = new JPanel();
@@ -260,31 +271,39 @@ public class Clickwars {
 		buttonSlot5.setBorder(null);
 		GroupLayout gl_panel2 = new GroupLayout(panel2);
 		gl_panel2.setHorizontalGroup(
-			gl_panel2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel2.createSequentialGroup()
-					.addGap(15)
+			gl_panel2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup()
+					.addContainerGap()
 					.addComponent(buttonSlot1)
-					.addGap(9)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(buttonSlot2)
-					.addGap(9)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(buttonSlot3)
-					.addGap(9)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(buttonSlot4)
-					.addGap(9)
-					.addComponent(buttonSlot5))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(buttonSlot5)
+					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		gl_panel2.setVerticalGroup(
 			gl_panel2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel2.createSequentialGroup()
-					.addGap(16)
-					.addGroup(gl_panel2.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING)
 						.addComponent(buttonSlot1)
+						.addComponent(buttonSlot5)
 						.addComponent(buttonSlot2)
 						.addComponent(buttonSlot3)
-						.addComponent(buttonSlot4)
-						.addComponent(buttonSlot5)))
+						.addComponent(buttonSlot4))
+					.addContainerGap(130, Short.MAX_VALUE))
 		);
 		panel2.setLayout(gl_panel2);
+		
+		panel3 = new JPanel();
+		panel3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Traits", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Profiles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		panel1 = new JPanel();
 		panel1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Settings", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -359,8 +378,8 @@ public class Clickwars {
 						.addComponent(lblHotkeytoapply))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
 					.addGap(33))
 		);
 		gl_panel1.setVerticalGroup(
@@ -381,41 +400,32 @@ public class Clickwars {
 					.addContainerGap())
 		);
 		panel1.setLayout(gl_panel1);
-		
-		panel3 = new JPanel();
-		panel3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Traits", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		
-		panel = new JPanel();
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Profiles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 722, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(panel2, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(157)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 488, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(71, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		
 		nameField = new JTextField();
@@ -460,27 +470,26 @@ public class Clickwars {
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(nameField, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnDelete, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNew, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+							.addComponent(btnNew, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnDelete))
-						.addComponent(btnNew))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(nameField)
+						.addComponent(btnNew, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnDelete, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(11)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -594,16 +603,13 @@ public class Clickwars {
 		traitline3.setLayout(gl_traitline3);
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
 		gl_panel3.setHorizontalGroup(
-			gl_panel3.createParallelGroup(Alignment.LEADING)
+			gl_panel3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel3.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel3.createParallelGroup(Alignment.LEADING)
-						.addComponent(traitline1, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
-						.addComponent(traitline2, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(16, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel3.createSequentialGroup()
-					.addContainerGap(60, Short.MAX_VALUE)
-					.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, 681, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
+						.addComponent(traitline1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+						.addComponent(traitline2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+						.addComponent(traitline3, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel3.setVerticalGroup(
@@ -615,7 +621,7 @@ public class Clickwars {
 					.addComponent(traitline2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addContainerGap(16, Short.MAX_VALUE))
 		);
 		
 		btnNewButton = new JButton("");

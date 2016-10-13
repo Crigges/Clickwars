@@ -126,7 +126,7 @@ public class ResourceFactory {
 		
 	}
 	
-	private static URL getResource(String path){
+	public static URL getResource(String path){
 		return ResourceFactory.class.getResource(path);
 	}
 
