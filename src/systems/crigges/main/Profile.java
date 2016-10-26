@@ -6,24 +6,30 @@ public class Profile {
 	private int hotkeyCode;
 	private int hotkeyMod;
 	private InterfaceSize interfaceSize;
-	private Profession prof;
-	private ArrayList<Integer> skillPos;
-	private ArrayList<Integer> traitlinePos;
-	private ArrayList<Integer> traitPos;
+	private Profession prof = Profession.Chronomancer;
+	private int[] skillPos;
+	private int[] traitlinePos;
+	private int[] traitPos;
+	private String name = "?";
+	private String hotkeyName = "?";
 
 	public Profile(int hotkeyCode, int hotkeyMod, InterfaceSize interfaceSize, Profession prof,
 			ArrayList<Integer> skillPos, ArrayList<Integer> traitlinePos, ArrayList<Integer> traitPos) {
-		super();
+		this();
 		this.hotkeyCode = hotkeyCode;
 		this.hotkeyMod = hotkeyMod;
 		this.interfaceSize = interfaceSize;
 		this.prof = prof;
-		this.skillPos = skillPos;
-		this.traitlinePos = traitlinePos;
-		this.traitPos = traitPos;
 	}
 	
-	public Profile() {	}
+	public Profile() {	
+		skillPos = new int[5];
+		initArray(skillPos);
+		traitlinePos = new int[3];
+		initArray(traitlinePos);
+		traitPos = new int[9];
+		initArray(traitPos);
+	}
 
 	public int getHotkeyCode() {
 		return hotkeyCode;
@@ -41,16 +47,16 @@ public class Profile {
 		return prof;
 	}
 
-	public ArrayList<Integer> getSkillPos() {
-		return skillPos;
+	public int getSkillPos(int slot) {
+		return skillPos[slot - 1];
 	}
 
-	public ArrayList<Integer> getTraitlinePos() {
-		return traitlinePos;
+	public int getTraitlinePos(int slot) {
+		return traitlinePos[slot - 1];
 	}
 
-	public ArrayList<Integer> getTraitPos() {
-		return traitPos;
+	public int getTraitPos(int slot) {
+		return traitPos[slot - 1];
 	}
 
 	public void setHotkeyCode(int hotkeyCode) {
@@ -69,16 +75,54 @@ public class Profile {
 		this.prof = prof;
 	}
 
-	public void setSkillPos(ArrayList<Integer> skillPos) {
-		this.skillPos = skillPos;
+	public void setSkillPos(int slot, int value) {
+		skillPos[slot - 1] = value;
 	}
 
-	public void setTraitlinePos(ArrayList<Integer> traitlinePos) {
-		this.traitlinePos = traitlinePos;
+	public void setTraitlinePos(int slot, int value) {
+		traitlinePos[slot - 1] = value;
 	}
 
-	public void setTraitPos(ArrayList<Integer> traitPos) {
-		this.traitPos = traitPos;
+	public void setTraitPos(int slot, int value) {
+		traitPos[slot - 1] = value;
+	}
+	
+	public Object[] getModelEntry(){
+		Object[] o = new Object[3];
+		o[0] = name;
+		o[1] = prof;
+		o[2] = hotkeyName;
+		return o;
+	}
+
+	public static ArrayList<Profile> get() {
+		return new ArrayList<>();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getHotkeyName() {
+		return hotkeyName;
+	}
+
+	public void setHotkeyName(String hotkeyName) {
+		this.hotkeyName = hotkeyName;
+	}
+
+	public int[] getAllSkillPos() {
+		return skillPos;
+	}
+	
+	private void initArray(int[] arr){
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = -1;
+		}
 	}
 
 }

@@ -14,7 +14,7 @@ public class OffsetBase {
 	}
 	
 	public static Point getSkillOffset(InterfaceSize size, int slot){
-		return skillOffsets.get(size)[slot - 1];
+		return skillOffsets.get(size)[slot];
 	}
 
 

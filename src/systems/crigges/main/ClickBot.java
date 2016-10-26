@@ -7,7 +7,7 @@ import java.awt.event.InputEvent;
 import java.util.ArrayList;
 
 public class ClickBot {
-	private static final int defaultDelay = 20;
+	private static final int defaultDelay = 25;
 	private Robot robot;
 	private KeypointDetection detec;
 	
@@ -22,13 +22,15 @@ public class ClickBot {
 	}
 	
 	public void apply(Profile profile){
-		ArrayList<Integer> skills = profile.getSkillPos();
 		Point p = detec.find(KeyPointBase.getSkillBar(profile.getInterfaceSize()));
 		if(p == null){
+			System.out.println("notfound");
 			return;
 		}
+		System.out.println("found");
 		int slot = 1;
-		for(int skill : profile.getSkillPos()){
+		for(int skill : profile.getAllSkillPos()){
+			System.out.println("f" + skill);
 			if(skill != -1){
 				Point slotOffset = OffsetBase.getSkillBarOffset(profile.getInterfaceSize(), slot);
 				Point fp = new Point(p.x + slotOffset.x, p.y + slotOffset.y);
@@ -46,6 +48,7 @@ public class ClickBot {
 	
 	private void rightClick(){
 		robot.mousePress(InputEvent.BUTTON3_MASK);
+		delay();
 		robot.mouseRelease(InputEvent.BUTTON3_MASK);
 	}
 	
@@ -65,16 +68,21 @@ public class ClickBot {
 	
 	public static void main(String[] args) throws InterruptedException {
 		Thread.currentThread().sleep(3000);
-		Profile p = new Profile();
-		p.setInterfaceSize(InterfaceSize.Larger);
-		ArrayList<Integer> list = new ArrayList<>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		list.add(4);
-		list.add(1);
-		p.setSkillPos(list);
-		new ClickBot().apply(p);
+//		Profile p = new Profile();
+//		p.setInterfaceSize(InterfaceSize.Larger);
+//		ArrayList<Integer> list = new ArrayList<>();
+//		list.add(1);
+//		list.add(2);
+//		list.add(3);
+//		list.add(4);
+//		list.add(1);
+//		p.setSkillPos(list);
+//		new ClickBot().apply(p);
+		ClickBot b = new ClickBot();
+		b.rightClick();
+
+		
+		
 		//p.setSkillPos(skillPos);
 	}
 

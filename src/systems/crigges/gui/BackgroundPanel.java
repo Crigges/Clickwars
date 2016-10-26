@@ -1,4 +1,4 @@
-package systems.crigges.main;
+package systems.crigges.gui;
 
 import java.awt.*;
 import java.awt.image.*;

@@ -1,4 +1,4 @@
-package systems.crigges.main;
+package systems.crigges.gen;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;

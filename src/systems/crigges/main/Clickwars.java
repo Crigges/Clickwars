@@ -2,9 +2,6 @@ package systems.crigges.main;
 
 import java.awt.AWTException;
 import java.awt.EventQueue;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +11,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,20 +24,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.NativeInputEvent;
 import org.jnativehook.SwingDispatchService;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
+
+import systems.crigges.gui.BackgroundPanel;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -54,15 +46,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListSelectionModel;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Paint;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import java.awt.Font;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
@@ -78,7 +69,7 @@ public class Clickwars {
 	private JButton buttonSlot2;
 	private JButton buttonSlot4;
 	private JButton buttonSlot5;
-	private JComboBox professionBox;
+	private JComboBox<Object> professionBox;
 	private BackgroundPanel traitline1;
 	private BackgroundPanel traitline2;
 	private BackgroundPanel traitline3;
@@ -93,12 +84,14 @@ public class Clickwars {
 	private JPanel panel2;
 	private JPanel panel;
 	private JTextField nameField;
-	private final Action action = new SwingAction();
 	private JTable profileTable;
 	private JButton btnNewButton;
 	private JButton button;
 	private JButton button_1;
 	private Profile currentProfile;
+	private ArrayList<Profile> profiles;
+	private JComboBox<Object> interfaceBox;
+	private ClickBot clicker;
 
 
 	/**
@@ -186,20 +179,43 @@ public class Clickwars {
 			GlobalScreen.setEventDispatcher(new SwingDispatchService());
 			GlobalScreen.registerNativeHook();
 		} catch (NativeHookException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		clicker = new ClickBot();
+		
+		GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
+			
+			@Override
+			public void nativeKeyTyped(NativeKeyEvent arg0) {
+				for(Profile p : profiles){
+					int code = arg0.getRawCode();
+					int mod = arg0.getModifiers();
+					if(p.getHotkeyCode() == code && p.getHotkeyMod() == mod){
+						clicker.apply(p);
+						System.out.println("appled " + p.getName());
+					}
+				}
+			}
+
+			@Override
+			public void nativeKeyPressed(NativeKeyEvent arg0) {}
+
+			@Override
+			public void nativeKeyReleased(NativeKeyEvent arg0) {}
+			
+		});
+		
 		frame = new JFrame();
 		//remove window icon
 		Image icon = null;
 		try {
 			icon = ImageIO.read(ResourceFactory.getResource("/other/gw2icon.png"));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		profiles = Profile.get();
 		frame.setIconImage(icon);
-		frame.setBounds(100, 100, 1227, 899);
+		frame.setBounds(100, 100, 1227, 932);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel2 = new JPanel();
@@ -212,6 +228,7 @@ public class Clickwars {
 				Skill res = d.openDialog();
 				if(res != null){
 					buttonSlot1.setIcon(new ImageIcon(res.getResource()));
+					currentProfile.setSkillPos(1, res.getPos());
 				}
 			}
 		});
@@ -225,6 +242,7 @@ public class Clickwars {
 				Skill res = d.openDialog();
 				if(res != null){
 					buttonSlot2.setIcon(new ImageIcon(res.getResource()));
+					currentProfile.setSkillPos(2, res.getPos());
 				}
 			}
 		});
@@ -238,6 +256,7 @@ public class Clickwars {
 				Skill res = d.openDialog();
 				if(res != null){
 					buttonSlot3.setIcon(new ImageIcon(res.getResource()));
+					currentProfile.setSkillPos(3, res.getPos());
 				}
 			}
 		});
@@ -251,6 +270,7 @@ public class Clickwars {
 				Skill res = d.openDialog();
 				if(res != null){
 					buttonSlot4.setIcon(new ImageIcon(res.getResource()));
+					currentProfile.setSkillPos(4, res.getPos());
 				}
 			}
 		});
@@ -264,6 +284,7 @@ public class Clickwars {
 				Skill res = d.openDialog();
 				if(res != null){
 					buttonSlot5.setIcon(new ImageIcon(res.getResource()));
+					currentProfile.setSkillPos(5, res.getPos());
 				}
 			}
 		});
@@ -310,11 +331,27 @@ public class Clickwars {
 		
 		JLabel lblProfession = new JLabel("Profession");
 		
-		professionBox = new JComboBox();
-		professionBox.setModel(new DefaultComboBoxModel(Profession.values()));
+		professionBox = new JComboBox<Object>();
+		professionBox.setModel(new DefaultComboBoxModel<Object>(Profession.values()));
+		professionBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				currentProfile.setProf((Profession) professionBox.getSelectedItem());
+				DefaultTableModel model = (DefaultTableModel) profileTable.getModel();
+				model.setValueAt(professionBox.getSelectedItem(), profileTable.getSelectedRow(), 1);
+			}
+		});
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(InterfaceSize.values()));
+		interfaceBox = new JComboBox<Object>();
+		interfaceBox.setModel(new DefaultComboBoxModel<Object>(InterfaceSize.values()));
+		interfaceBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				currentProfile.setInterfaceSize((InterfaceSize) interfaceBox.getSelectedItem());
+			}
+		});
 		
 		JLabel lblInterfaceSize = new JLabel("Interface Size");
 		
@@ -339,6 +376,10 @@ public class Clickwars {
 						hotkeyButton.setText(mod + pressedKeyText);
 						hotkeyCode = pressedKeyCode;
 						hotkeyMod = arg0.getModifiers();
+						currentProfile.setHotkeyCode(pressedKeyCode);
+						currentProfile.setHotkeyMod(hotkeyMod);
+						DefaultTableModel model = (DefaultTableModel) profileTable.getModel();
+						model.setValueAt(mod + pressedKeyText, profileTable.getSelectedRow(), 2);
 						GlobalScreen.removeNativeKeyListener(this);
 					}
 
@@ -371,7 +412,7 @@ public class Clickwars {
 					.addGap(18)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblInterfaceSize)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
+						.addComponent(interfaceBox, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
 						.addComponent(hotkeyButton, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
@@ -394,7 +435,7 @@ public class Clickwars {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(professionBox, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(interfaceBox, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(hotkeyButton, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
 						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
@@ -454,11 +495,15 @@ public class Clickwars {
 					JOptionPane.showMessageDialog(frame, "Enter a profile Name!");
 				}else{
 					DefaultTableModel model = (DefaultTableModel)profileTable.getModel();
-					Object[] o = new Object[3];
-					o[0] = nameField.getText();
-					o[1] = professionBox.getSelectedItem();
-					o[2] = hotkeyButton.getText();
-					model.addRow(o);
+					currentProfile = new Profile();
+					currentProfile.setInterfaceSize((InterfaceSize) interfaceBox.getSelectedItem());
+					currentProfile.setProf((Profession) professionBox.getSelectedItem());
+					currentProfile.setName(nameField.getText());
+					currentProfile.setHotkeyName(hotkeyButton.getText());
+					currentProfile.setHotkeyCode(hotkeyCode);
+					currentProfile.setHotkeyMod(hotkeyMod);
+					profiles.add(currentProfile);
+					model.addRow(currentProfile.getModelEntry());
 					profileTable.getSelectionModel().setSelectionInterval(0, model.getRowCount() - 1);
 				}
 			}

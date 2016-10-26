@@ -34,14 +34,27 @@ public class ResourceFactory {
 
 	public static Skill getSkill(Profession prof, int index, int slot) {
 		URL res;
+		int pos;
+		boolean atLimit = false;
 		if(slot == 1){
 			res = healSkills.get(prof)[healSkills.get(prof).length - 1 - index];
+			pos = healSkills.get(prof).length;
+			atLimit = (index - 1 + 4) >= pos; 
 		}else if(slot == 5){
 			res = eliteSkills.get(prof)[eliteSkills.get(prof).length - 1 - index];
+			pos = eliteSkills.get(prof).length;
+			atLimit = (index - 1 + 4) >= pos; 
 		}else{
 			res = utilSkills.get(prof)[utilSkills.get(prof).length - 1- index];
+			pos = utilSkills.get(prof).length;
+			atLimit = (index - 1 + 4) >= pos; 
 		}
-		return new Skill(res, index);
+		pos = pos - index - 1;
+		if(atLimit){
+			return new Skill(res, index);
+		}else{
+			return new Skill(res, ((pos / 4) * 4) + (3 - (pos % 4)));
+		}
 	}
 	
 	public static int getTraitlineCount(Profession prof, int slot) {
@@ -111,8 +124,8 @@ public class ResourceFactory {
 		URL[] chronoElite = new URL[4];
 		chronoElite[0] = getResource("/chrono/Gravity_Well.png");
 		chronoElite[1] = getResource("/chrono/Mass_Invisibility.png");
-		chronoElite[2] = getResource("/chrono/Signet_of_Humility.png");
-		chronoElite[3] = getResource("/chrono/Time_Warp.png");
+		chronoElite[3] = getResource("/chrono/Signet_of_Humility.png");
+		chronoElite[2] = getResource("/chrono/Time_Warp.png");
 		eliteSkills.put(Profession.Chronomancer, chronoElite);
 
 		URL[] chronoTraitlines = new URL[6];

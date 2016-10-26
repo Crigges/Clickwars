@@ -1,4 +1,4 @@
-package systems.crigges.main;
+package systems.crigges.gen;
 
 import java.io.File;
 import java.io.FileFilter;
