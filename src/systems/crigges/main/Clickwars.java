@@ -1,6 +1,7 @@
 package systems.crigges.main;
 
 import java.awt.AWTException;
+import java.awt.Button;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,10 +66,7 @@ import javax.swing.table.DefaultTableModel;
 public class Clickwars {
 
 	private JFrame frame;
-	private JButton buttonSlot1;
-	private JButton buttonSlot2;
-	private JButton buttonSlot4;
-	private JButton buttonSlot5;
+	private JButton[] buttonSlots;
 	private JComboBox<Object> professionBox;
 	private BackgroundPanel traitline1;
 	private BackgroundPanel traitline2;
@@ -215,95 +213,33 @@ public class Clickwars {
 		}
 		profiles = Profile.get();
 		frame.setIconImage(icon);
-		frame.setBounds(100, 100, 1227, 932);
+		frame.setBounds(100, 100, 1227, 938);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel2 = new JPanel();
 		panel2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Skills", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		buttonSlot1 = new JButton("");
-		buttonSlot1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
-				Skill res = d.openDialog();
-				if(res != null){
-					buttonSlot1.setIcon(new ImageIcon(res.getResource()));
-					currentProfile.setSkillPos(1, res.getPos());
-				}
-			}
-		});
-		buttonSlot1.setBorder(null);
-		buttonSlot1.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
-		
-		buttonSlot2 = new JButton("");
-		buttonSlot2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 2);
-				Skill res = d.openDialog();
-				if(res != null){
-					buttonSlot2.setIcon(new ImageIcon(res.getResource()));
-					currentProfile.setSkillPos(2, res.getPos());
-				}
-			}
-		});
-		buttonSlot2.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
-		buttonSlot2.setBorder(null);
-		
-		JButton buttonSlot3 = new JButton("");
-		buttonSlot3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 3);
-				Skill res = d.openDialog();
-				if(res != null){
-					buttonSlot3.setIcon(new ImageIcon(res.getResource()));
-					currentProfile.setSkillPos(3, res.getPos());
-				}
-			}
-		});
-		buttonSlot3.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
-		buttonSlot3.setBorder(null);
-		
-		buttonSlot4 = new JButton("");
-		buttonSlot4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 4);
-				Skill res = d.openDialog();
-				if(res != null){
-					buttonSlot4.setIcon(new ImageIcon(res.getResource()));
-					currentProfile.setSkillPos(4, res.getPos());
-				}
-			}
-		});
-		buttonSlot4.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
-		buttonSlot4.setBorder(null);
-		
-		buttonSlot5 = new JButton("");
-		buttonSlot5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 5);
-				Skill res = d.openDialog();
-				if(res != null){
-					buttonSlot5.setIcon(new ImageIcon(res.getResource()));
-					currentProfile.setSkillPos(5, res.getPos());
-				}
-			}
-		});
-		buttonSlot5.setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
-		buttonSlot5.setBorder(null);
+		buttonSlots = new JButton[5];
+		for(int i = 0; i<5; i++){
+			buttonSlots[i] = new JButton("");
+			buttonSlots[i].addActionListener(new SkillSlotListener(i));
+			buttonSlots[i].setBorder(null);
+			buttonSlots[i].setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
+		}
 		GroupLayout gl_panel2 = new GroupLayout(panel2);
 		gl_panel2.setHorizontalGroup(
 			gl_panel2.createParallelGroup(Alignment.TRAILING)
 				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(buttonSlot1)
+					.addComponent(buttonSlots[0])
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSlot2)
+					.addComponent(buttonSlots[1])
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSlot3)
+					.addComponent(buttonSlots[2])
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSlot4)
+					.addComponent(buttonSlots[3])
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSlot5)
+					.addComponent(buttonSlots[4])
 					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		gl_panel2.setVerticalGroup(
@@ -311,11 +247,11 @@ public class Clickwars {
 				.addGroup(gl_panel2.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING)
-						.addComponent(buttonSlot1)
-						.addComponent(buttonSlot5)
-						.addComponent(buttonSlot2)
-						.addComponent(buttonSlot3)
-						.addComponent(buttonSlot4))
+						.addComponent(buttonSlots[0])
+						.addComponent(buttonSlots[4])
+						.addComponent(buttonSlots[1])
+						.addComponent(buttonSlots[2])
+						.addComponent(buttonSlots[3]))
 					.addContainerGap(130, Short.MAX_VALUE))
 		);
 		panel2.setLayout(gl_panel2);
@@ -446,11 +382,12 @@ public class Clickwars {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(panel2, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(panel2, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panel1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE))
 						.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
@@ -458,15 +395,15 @@ public class Clickwars {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(panel, 0, 0, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(15, Short.MAX_VALUE))
+							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		
 		nameField = new JTextField();
@@ -481,6 +418,7 @@ public class Clickwars {
 				}else{
 					int res = JOptionPane.showConfirmDialog(frame, "Are you sure?");
 					if(res == JOptionPane.OK_OPTION){
+						profiles.remove(profileTable.getSelectedRow());
 						DefaultTableModel model = (DefaultTableModel)profileTable.getModel();
 						model.removeRow(profileTable.getSelectedRow());
 					}
@@ -562,7 +500,7 @@ public class Clickwars {
 				if(!e.getValueIsAdjusting()){
 					setEditEnabeld(mod.getMinSelectionIndex() != -1);
 					if(mod.getMinSelectionIndex() != -1){
-						System.out.println(mod.getMinSelectionIndex());
+						loadProfile(profiles.get(profileTable.getSelectedRow()));
 					}
 				}
 			}
@@ -738,12 +676,36 @@ public class Clickwars {
 		mnNewMenu.add(mntmExit);
 		
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+	
+	private class SkillSlotListener implements ActionListener{
+		private int slot;
+		
+		public SkillSlotListener(int slot) {
+			this.slot = slot;
 		}
+
+		@Override
 		public void actionPerformed(ActionEvent e) {
+			SkillSelectDialog d = new SkillSelectDialog(frame, (Profession) professionBox.getSelectedItem(), slot);
+			Skill res = d.openDialog();
+			if(res != null){
+				buttonSlots[slot].setIcon(new ImageIcon(res.getResource()));
+				currentProfile.setSkillPos(slot, res.getPos());
+			}
+		}
+		
+	}
+	
+	
+	private void loadProfile(Profile p){
+		currentProfile = p;
+		hotkeyCode = p.getHotkeyCode();
+		hotkeyMod = p.getHotkeyMod();
+		for (int i = 0; i < buttonSlots.length; i++) {
+			if(p.getSkillPos(i) != -1){
+				buttonSlots[i].setIcon(ResourceFactory.getSkill(p.getProf(), p.getSkillPos(i), i));
+			}
 		}
 	}
+	
 }

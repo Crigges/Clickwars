@@ -23,9 +23,9 @@ public class ResourceFactory {
 	}
 	
 	public static int getSkillCount(Profession prof, int slot){
-		if(slot == 1){
+		if(slot == 0){
 			return healSkills.get(prof).length;
-		}else if(slot == 5){
+		}else if(slot == 4){
 			return eliteSkills.get(prof).length;
 		}else{
 			return utilSkills.get(prof).length;
@@ -34,27 +34,14 @@ public class ResourceFactory {
 
 	public static Skill getSkill(Profession prof, int index, int slot) {
 		URL res;
-		int pos;
-		boolean atLimit = false;
-		if(slot == 1){
-			res = healSkills.get(prof)[healSkills.get(prof).length - 1 - index];
-			pos = healSkills.get(prof).length;
-			atLimit = (index - 1 + 4) >= pos; 
-		}else if(slot == 5){
-			res = eliteSkills.get(prof)[eliteSkills.get(prof).length - 1 - index];
-			pos = eliteSkills.get(prof).length;
-			atLimit = (index - 1 + 4) >= pos; 
+		if(slot == 0){
+			res = healSkills.get(prof)[index];
+		}else if(slot == 4){
+			res = eliteSkills.get(prof)[index];
 		}else{
-			res = utilSkills.get(prof)[utilSkills.get(prof).length - 1- index];
-			pos = utilSkills.get(prof).length;
-			atLimit = (index - 1 + 4) >= pos; 
+			res = utilSkills.get(prof)[index];
 		}
-		pos = pos - index - 1;
-		if(atLimit){
-			return new Skill(res, index);
-		}else{
-			return new Skill(res, ((pos / 4) * 4) + (3 - (pos % 4)));
-		}
+		return new Skill(res, index);
 	}
 	
 	public static int getTraitlineCount(Profession prof, int slot) {
@@ -69,13 +56,13 @@ public class ResourceFactory {
 		URL res;
 		if(slot != 3){
 			if(index >= 4){
-				res = traitlines.get(prof)[traitlines.get(prof).length - 2 - index];
-			}else{
 				res = traitlines.get(prof)[traitlines.get(prof).length - 1 - index];
+			}else{
+				res = traitlines.get(prof)[traitlines.get(prof).length - index];
 			}
 			
 		}else{
-			res = traitlines.get(prof)[traitlines.get(prof).length - 1 - index];
+			res = traitlines.get(prof)[traitlines.get(prof).length - index];
 		}
 		return new Traitline(res, index);
 	}
@@ -86,46 +73,54 @@ public class ResourceFactory {
 	
 	private static void initChrono() {
 		URL[] chronoHeals = new URL[5];
-		chronoHeals[0] = getResource("/chrono/Signet_of_the_Ether.png");
-		chronoHeals[1] = getResource("/chrono/Mantra_of_Recovery.png");
-		chronoHeals[2] = getResource("/chrono/Mirror.png");
-		chronoHeals[3] = getResource("/chrono/Ether_Feast.png");
+		chronoHeals[0] = getResource("/chrono/Ether_Feast.png");
+		chronoHeals[1] = getResource("/chrono/Mirror.png");
+		chronoHeals[2] = getResource("/chrono/Mantra_of_Recovery.png");
+		chronoHeals[3] = getResource("/chrono/Signet_of_the_Ether.png");
 		chronoHeals[4] = getResource("/chrono/Well_of_Eternity.png");
 		healSkills.put(Profession.Chronomancer, chronoHeals);
 		
-		URL[] chronoUtils = new URL[24];
-		chronoUtils[0] = getResource("/chrono/Signet_of_Illusions.png");
-		chronoUtils[1] = getResource("/chrono/Signet_of_Midnight.png");
-		chronoUtils[2] = getResource("/chrono/Signet_of_Domination.png");
-		chronoUtils[3] = getResource("/chrono/Signet_of_Inspiration.png");
-		chronoUtils[4] = getResource("/chrono/Mantra_of_Concentration.png");	
-		chronoUtils[5] = getResource("/chrono/Mantra_of_Resolve.png");
-		chronoUtils[6] = getResource("/chrono/Mantra_of_Distraction.png");
-		chronoUtils[7] = getResource("/chrono/Mantra_of_Pain.png");
-		chronoUtils[8] = getResource("/chrono/Mimic.png");
-		chronoUtils[9] = getResource("/chrono/Illusion_of_Life.png");
-		chronoUtils[10] = getResource("/chrono/Arcane_Thievery.png");
-		chronoUtils[11] = getResource("/chrono/Blink.png");
-		chronoUtils[12] = getResource("/chrono/Phantasmal_Disenchanter.png");
-		chronoUtils[13] = getResource("/chrono/Phantasmal_Defender.png");
-		chronoUtils[14] = getResource("/chrono/Mirror_Images.png");
-		chronoUtils[15] = getResource("/chrono/Decoy.png");
-		chronoUtils[16] = getResource("/chrono/Veil.png");
-		chronoUtils[17] = getResource("/chrono/Portal_Entre.png");
-		chronoUtils[18] = getResource("/chrono/Feedback.png");
-		chronoUtils[19] = getResource("/chrono/Null_Field.png");
-		chronoUtils[20] = getResource("/chrono/Well_of_Action.png");
-		chronoUtils[21] = getResource("/chrono/Well_of_Recall.png");
-		chronoUtils[22] = getResource("/chrono/Well_of_Calamity.png");
-		chronoUtils[23] = getResource("/chrono/Well_of_Precognition.png");
+		URL[] chronoUtils  = new URL[24];
+		chronoUtils[0] = getResource("/chrono/Signet_of_Inspiration.png");
+		chronoUtils[1] = getResource("/chrono/Signet_of_Domination.png");
+		chronoUtils[2] = getResource("/chrono/Signet_of_Midnight.png");
+		chronoUtils[3] = getResource("/chrono/Signet_of_Illusions.png");
+		
+		chronoUtils[4] = getResource("/chrono/Mantra_of_Pain.png");
+		chronoUtils[5] = getResource("/chrono/Mantra_of_Distraction.png");
+		chronoUtils[6] = getResource("/chrono/Mantra_of_Resolve.png");
+		chronoUtils[7] = getResource("/chrono/Mantra_of_Concentration.png");	
+		
+		chronoUtils[8] = getResource("/chrono/Blink.png");
+		chronoUtils[9] = getResource("/chrono/Arcane_Thievery.png");
+		chronoUtils[10] = getResource("/chrono/Illusion_of_Life.png");
+		chronoUtils[11] = getResource("/chrono/Mimic.png");
+		
+		chronoUtils[12] = getResource("/chrono/Decoy.png");
+		chronoUtils[13] = getResource("/chrono/Mirror_Images.png");
+		chronoUtils[14] = getResource("/chrono/Phantasmal_Defender.png");
+		chronoUtils[15] = getResource("/chrono/Phantasmal_Disenchanter.png");
+		
+		chronoUtils[16] = getResource("/chrono/Null_Field.png");
+		chronoUtils[17] = getResource("/chrono/Feedback.png");
+		chronoUtils[18] = getResource("/chrono/Portal_Entre.png");
+		chronoUtils[19] = getResource("/chrono/Veil.png");
+		
+		chronoUtils[20] = getResource("/chrono/Well_of_Precognition.png");
+		chronoUtils[21] = getResource("/chrono/Well_of_Calamity.png");
+		chronoUtils[22] = getResource("/chrono/Well_of_Recall.png");
+		chronoUtils[23] = getResource("/chrono/Well_of_Action.png");
+		
+		
+		
 		utilSkills.put(Profession.Chronomancer, chronoUtils);
 
 		
-		URL[] chronoElite = new URL[4];
-		chronoElite[0] = getResource("/chrono/Gravity_Well.png");
-		chronoElite[1] = getResource("/chrono/Mass_Invisibility.png");
-		chronoElite[3] = getResource("/chrono/Signet_of_Humility.png");
-		chronoElite[2] = getResource("/chrono/Time_Warp.png");
+		URL[] chronoElite = new URL[4];	
+		chronoElite[0] = getResource("/chrono/Signet_of_Humility.png");
+		chronoElite[1] = getResource("/chrono/Time_Warp.png");
+		chronoElite[2] = getResource("/chrono/Mass_Invisibility.png");
+		chronoElite[3] = getResource("/chrono/Gravity_Well.png");
 		eliteSkills.put(Profession.Chronomancer, chronoElite);
 
 		URL[] chronoTraitlines = new URL[6];

@@ -48,15 +48,15 @@ public class Profile {
 	}
 
 	public int getSkillPos(int slot) {
-		return skillPos[slot - 1];
+		return skillPos[slot];
 	}
 
 	public int getTraitlinePos(int slot) {
-		return traitlinePos[slot - 1];
+		return traitlinePos[slot];
 	}
 
 	public int getTraitPos(int slot) {
-		return traitPos[slot - 1];
+		return traitPos[slot];
 	}
 
 	public void setHotkeyCode(int hotkeyCode) {
@@ -76,15 +76,15 @@ public class Profile {
 	}
 
 	public void setSkillPos(int slot, int value) {
-		skillPos[slot - 1] = value;
+		skillPos[slot] = value;
 	}
 
 	public void setTraitlinePos(int slot, int value) {
-		traitlinePos[slot - 1] = value;
+		traitlinePos[slot] = value;
 	}
 
 	public void setTraitPos(int slot, int value) {
-		traitPos[slot - 1] = value;
+		traitPos[slot] = value;
 	}
 	
 	public Object[] getModelEntry(){
