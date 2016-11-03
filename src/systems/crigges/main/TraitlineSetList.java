@@ -17,7 +17,7 @@ public class TraitlineSetList extends JList<Icon>{
 		super();
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		if(slot == 3){
+		if(slot == 2){
 			setVisibleRowCount(6);
 		}else{
 			setVisibleRowCount(5);

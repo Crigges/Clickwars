@@ -68,12 +68,7 @@ public class Clickwars {
 	private JFrame frame;
 	private JButton[] buttonSlots;
 	private JComboBox<Object> professionBox;
-	private BackgroundPanel traitline1;
-	private BackgroundPanel traitline2;
-	private BackgroundPanel traitline3;
-	private JButton[] traitline1Traits;
-	private JButton[] traitline2Traits;
-	private JButton[] traitline3Traits;
+	private BackgroundPanel[] traitlines;
 	private JButton hotkeyButton;
 	private int hotkeyCode;
 	private int hotkeyMod;
@@ -90,6 +85,7 @@ public class Clickwars {
 	private ArrayList<Profile> profiles;
 	private JComboBox<Object> interfaceBox;
 	private ClickBot clicker;
+	private JButton[][] traitlineTraits;
 
 
 	/**
@@ -511,157 +507,73 @@ public class Clickwars {
 		scrollPane.setViewportView(profileTable);
 		panel.setLayout(gl_panel);
 		
-		traitline1 = new BackgroundPanel((Paint) null);
-		traitline1.setImageAlignmentY(0.0f);
-		traitline1.setImageAlignmentX(0.0f);
-		traitline1.setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
-		traitline1.setLayout(null);
+		traitlines = new BackgroundPanel[3];
 		
-		traitline2 = new BackgroundPanel((Paint) null);
-		traitline2.setImageAlignmentX(0.0f);
-		traitline2.setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
-		traitline2.setImageAlignmentY(0.0f);
 		
-		button = new JButton("");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
- 				Traitline t = diag.openDialog();
- 				if(t != null){
- 					traitline2.setImage(t.getImage());
- 				}
-			}
-		});
-		button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		button.setContentAreaFilled(false);
-		button.setBorder(null);
-		GroupLayout gl_traitline2 = new GroupLayout(traitline2);
-		gl_traitline2.setHorizontalGroup(
-			gl_traitline2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_traitline2.createSequentialGroup()
-					.addGap(50)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(492, Short.MAX_VALUE))
-		);
-		gl_traitline2.setVerticalGroup(
-			gl_traitline2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_traitline2.createSequentialGroup()
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		traitline2.setLayout(gl_traitline2);
+		for (int i = 0; i < traitlines.length; i++) {
+			traitlines[i] = new BackgroundPanel((Paint) null);
+			traitlines[i].setImageAlignmentY(0.0f);
+			traitlines[i].setImageAlignmentX(0.0f);
+			traitlines[i].setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
+			traitlines[i].setLayout(null);
+			JButton button = new JButton("");
+			button.addActionListener(new TraitlineSlotListener(i));
+			button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
+			button.setContentAreaFilled(false);
+			button.setBorder(null);
+			button.setBounds(50, 8, 120, 120);
+			traitlines[i].add(button);
+		}
 		
-		traitline3 = new BackgroundPanel((Paint) null);
-		traitline3.setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
-		traitline3.setImageAlignmentY(0.0f);
-		traitline3.setImageAlignmentX(0.0f);
 		
-		button_1 = new JButton("");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 3);
- 				Traitline t = diag.openDialog();
- 				if(t != null){
- 					traitline3.setImage(t.getImage());
- 				}
-			}
-		});
-		button_1.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		button_1.setContentAreaFilled(false);
-		button_1.setBorder(null);
-		GroupLayout gl_traitline3 = new GroupLayout(traitline3);
-		gl_traitline3.setHorizontalGroup(
-			gl_traitline3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_traitline3.createSequentialGroup()
-					.addGap(51)
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(491, Short.MAX_VALUE))
-		);
-		gl_traitline3.setVerticalGroup(
-			gl_traitline3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_traitline3.createSequentialGroup()
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		traitline3.setLayout(gl_traitline3);
+	
+		
+		
+		
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
 		gl_panel3.setHorizontalGroup(
 			gl_panel3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel3.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
-						.addComponent(traitline1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
-						.addComponent(traitline2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
-						.addComponent(traitline3, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
+						.addComponent(traitlines[0], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+						.addComponent(traitlines[1], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+						.addComponent(traitlines[2], GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel3.setVerticalGroup(
 			gl_panel3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel3.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(traitline1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(traitlines[0], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(traitline2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(traitlines[1], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(traitline3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(traitlines[2], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(16, Short.MAX_VALUE))
 		);
 		
-		btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
- 				TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), 1);
- 				Traitline t = diag.openDialog();
- 				if(t != null){
- 					traitline1.setImage(t.getImage());
- 				}
-			}
-		});
-		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setBorder(null);
-		btnNewButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/traitlabel.png")));
-		btnNewButton.setBounds(51, 0, 139, 136);
-		traitline1.add(btnNewButton);
 		panel3.setLayout(gl_panel3);
 		frame.getContentPane().setLayout(groupLayout);
 		
-		traitline1Traits = new JButton[9];
-		traitline2Traits = new JButton[9];
-		traitline3Traits = new JButton[9];
+		traitlineTraits = new JButton[3][9];
 		int i = 0;
-		int startX = 220;
+		int startX = 230;
 		int stepX = 160;
 		int startY = 10;
-		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
-			for(int y = startY; y<40*3 + startY; y+= 40) {
-				traitline1Traits[i] = new JButton(ResourceFactory.getClearTrait());
-				traitline1Traits[i].setBorder(null);
-				traitline1.add(traitline1Traits[i]);
-				traitline1Traits[i].setBounds(x, y, 32, 32);
-				i++;
+		for(int lines = 0; lines<traitlineTraits.length; lines++){
+			i = 0;
+			for(int x = startX; x<stepX*3 + startX; x+= stepX) {
+				for(int y = startY; y<40*3 + startY; y+= 40) {
+					traitlineTraits[lines][i] = new JButton(ResourceFactory.getClearTrait());
+					traitlineTraits[lines][i].setBorder(null);
+					traitlines[lines].add(traitlineTraits[lines][i]);
+					traitlineTraits[lines][i].setBounds(x, y, 32, 32);
+					i++;
+				}
 			}
 		}
-		i = 0;
-		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
-			for(int y = startY; y<40*3 + startY; y+= 40) {
-				traitline2Traits[i] = new JButton(ResourceFactory.getClearTrait());
-				traitline2Traits[i].setBorder(null);
-				traitline2.add(traitline2Traits[i]);
-				traitline2Traits[i].setBounds(x, y, 32, 32);
-				i++;
-			}
-		}
-		i = 0;
-		for(int x = startX; x<stepX*3 + startX; x+= stepX) {
-			for(int y = startY; y<40*3 + startY; y+= 40) {
-				traitline3Traits[i] = new JButton(ResourceFactory.getClearTrait());
-				traitline3Traits[i].setBorder(null);
-				traitline3.add(traitline3Traits[i]);
-				traitline3Traits[i].setBounds(x, y, 32, 32);
-				i++;
-			}
-		}
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		JMenu mnNewMenu = new JMenu("File");
@@ -691,6 +603,24 @@ public class Clickwars {
 			if(res != null){
 				buttonSlots[slot].setIcon(new ImageIcon(res.getResource()));
 				currentProfile.setSkillPos(slot, res.getPos());
+			}
+		}
+		
+	}
+	
+	private class TraitlineSlotListener implements ActionListener{
+		private int slot;
+		
+		public TraitlineSlotListener(int slot) {
+			this.slot = slot;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TraitlineSelectDialog diag = new TraitlineSelectDialog(frame, (Profession) professionBox.getSelectedItem(), slot);
+			Traitline t = diag.openDialog();
+			if(t != null){
+				traitlines[slot].setImage(t.getImage());
 			}
 		}
 		

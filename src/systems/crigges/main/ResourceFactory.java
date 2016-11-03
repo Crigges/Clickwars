@@ -45,7 +45,8 @@ public class ResourceFactory {
 	}
 	
 	public static int getTraitlineCount(Profession prof, int slot) {
-		if(slot == 3){
+		System.out.println(slot);
+		if(slot == 2){
 			return 6;
 		}else{
 			return 5;
@@ -54,16 +55,7 @@ public class ResourceFactory {
 	
 	public static Traitline getTraitline(Profession prof, int index, int slot) {
 		URL res;
-		if(slot != 3){
-			if(index >= 4){
-				res = traitlines.get(prof)[traitlines.get(prof).length - 1 - index];
-			}else{
-				res = traitlines.get(prof)[traitlines.get(prof).length - index];
-			}
-			
-		}else{
-			res = traitlines.get(prof)[traitlines.get(prof).length - index];
-		}
+		res = traitlines.get(prof)[index];
 		return new Traitline(res, index);
 	}
 	
@@ -124,12 +116,12 @@ public class ResourceFactory {
 		eliteSkills.put(Profession.Chronomancer, chronoElite);
 
 		URL[] chronoTraitlines = new URL[6];
-		chronoTraitlines[0] = getResource("/chrono/chaos.png");
-		chronoTraitlines[1] = getResource("/chrono/chrono.png");
-		chronoTraitlines[2] = getResource("/chrono/dueling.png");
-		chronoTraitlines[3] = getResource("/chrono/illusions.png");
-		chronoTraitlines[4] = getResource("/chrono/domination.png");
-		chronoTraitlines[5] = getResource("/chrono/inspiration.png");
+		chronoTraitlines[0] = getResource("/chrono/domination.png");
+		chronoTraitlines[1] = getResource("/chrono/dueling.png");
+		chronoTraitlines[2] = getResource("/chrono/chaos.png");
+		chronoTraitlines[3] = getResource("/chrono/inspiration.png");
+		chronoTraitlines[4] = getResource("/chrono/illusions.png");
+		chronoTraitlines[5] = getResource("/chrono/chrono.png");
 		traitlines.put(Profession.Chronomancer, chronoTraitlines);
 		
 	}
