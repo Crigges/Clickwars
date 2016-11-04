@@ -45,4 +45,11 @@ public class KeyPoint{
 		System.out.println(p.check(Color.BLACK.brighter()));
 	}
 
+	@Override
+	public String toString() {
+		return "KeyPoint [x=" + x + ", y=" + y + ", r=" + r + ", g=" + g + ", b=" + b + "]";
+	}
+	
+	
+
 }

@@ -119,6 +119,15 @@ public class Profile {
 		return skillPos;
 	}
 	
+	public int[] getAllTraitlinePos() {
+		return traitlinePos;
+	}
+
+	public int[] getAllTraitPos() {
+		return traitPos;
+	}
+
+
 	private void initArray(int[] arr){
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = -1;

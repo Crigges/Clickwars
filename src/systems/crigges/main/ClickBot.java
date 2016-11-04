@@ -4,10 +4,12 @@ import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class ClickBot {
 	private static final int defaultDelay = 25;
+	private static final int fadeDelay = 350;
 	private Robot robot;
 	private KeypointDetection detec;
 	
@@ -22,15 +24,14 @@ public class ClickBot {
 	}
 	
 	public void apply(Profile profile){
+		detec.takeScreen();
 		Point p = detec.find(KeyPointBase.getSkillBar(profile.getInterfaceSize()));
 		if(p == null){
-			System.out.println("notfound");
+			System.out.println("nofound");
 			return;
 		}
-		System.out.println("found");
-		int slot = 1;
+		int slot = 0;
 		for(int skill : profile.getAllSkillPos()){
-			System.out.println("f" + skill);
 			if(skill != -1){
 				Point slotOffset = OffsetBase.getSkillBarOffset(profile.getInterfaceSize(), slot);
 				Point fp = new Point(p.x + slotOffset.x, p.y + slotOffset.y);
@@ -44,11 +45,43 @@ public class ClickBot {
 			}
 			slot++;
 		}
+		//apply traitlines
+		p = detec.find(KeyPointBase.getHeroPanel(profile.getInterfaceSize()));
+		if(p == null){
+			keyType(KeyEvent.VK_H);
+			delay(fadeDelay);
+			detec.takeScreen();
+			p = detec.find(KeyPointBase.getHeroPanel(profile.getInterfaceSize()));
+			if(p == null){
+				return;
+			}
+		}
+		Point bto = OffsetBase.getBuildTabOffset(profile.getInterfaceSize());
+		robot.mouseMove(p.x + bto.x, p.y + bto.y);
+		click();
+		delay();
+		slot = 0;
+		for(int skill : profile.getAllTraitlinePos()){
+			Point slotOffset = OffsetBase.getTraitlineIconOffset(profile.getInterfaceSize(), slot);
+			Point fp = new Point(p.x + slotOffset.x, p.y + slotOffset.y);
+			robot.mouseMove(fp.x, fp.y);
+			click();
+			delay();
+			Point skillOffset = OffsetBase.getTraitlineOffset(profile.getInterfaceSize(), skill);
+			fp.translate(skillOffset.x, skillOffset.y);
+			robot.mouseMove(fp.x, fp.y);
+			click();
+			slot++;
+		}
+	}
+	
+	private void keyType(int keycode){
+		robot.keyPress(keycode);
+		robot.keyRelease(keycode);
 	}
 	
 	private void rightClick(){
 		robot.mousePress(InputEvent.BUTTON3_MASK);
-		delay();
 		robot.mouseRelease(InputEvent.BUTTON3_MASK);
 	}
 	
@@ -60,6 +93,15 @@ public class ClickBot {
 	private void delay(){
 		try {
 			Thread.currentThread().sleep(defaultDelay);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void delay(int time){
+		try {
+			Thread.currentThread().sleep(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

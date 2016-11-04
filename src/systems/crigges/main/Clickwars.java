@@ -621,6 +621,7 @@ public class Clickwars {
 			Traitline t = diag.openDialog();
 			if(t != null){
 				traitlines[slot].setImage(t.getImage());
+				currentProfile.setTraitlinePos(slot, t.getPos());
 			}
 		}
 		
@@ -634,6 +635,11 @@ public class Clickwars {
 		for (int i = 0; i < buttonSlots.length; i++) {
 			if(p.getSkillPos(i) != -1){
 				buttonSlots[i].setIcon(ResourceFactory.getSkill(p.getProf(), p.getSkillPos(i), i));
+			}
+		}
+		for (int i = 0; i < traitlines.length; i++) {
+			if(p.getTraitlinePos(i) != -1){
+				traitlines[i].setImage(Toolkit.getDefaultToolkit().getImage(ResourceFactory.getTraitline(p.getProf(), p.getTraitlinePos(i), i).getResource()));
 			}
 		}
 	}

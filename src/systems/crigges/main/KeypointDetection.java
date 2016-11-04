@@ -19,13 +19,14 @@ public class KeypointDetection {
 	private Rectangle screenSize;
 	private ExecutorService pool = Executors.newFixedThreadPool(4);
 	private Point globalFound = null;
+	private BufferedImage currentScreen;
 	
 	public static void main(String[] args) {
 		KeypointDetection detec = new KeypointDetection();
 		BufferedImage img = detec.robot.createScreenCapture(detec.screenSize);
 		long time = System.currentTimeMillis();
-		for(int i = 0; i < 100; i++){
-			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Larger)));
+		for(int i = 0; i < 1; i++){
+			System.out.println(detec.find(KeyPointBase.getHeroPanel(InterfaceSize.Larger)));
 		}
 		System.out.println(System.currentTimeMillis() - time);
 	}
@@ -40,9 +41,12 @@ public class KeypointDetection {
 		}
 	}
 	
+	public void takeScreen() {
+		currentScreen = robot.createScreenCapture(screenSize);
+	}
+	
 	public Point find(ArrayList<KeyPoint> points){
-		BufferedImage img = robot.createScreenCapture(screenSize);
-		return findThreaded(points, img);
+		return findThreaded(points, currentScreen);
 	}
 	
 	private Point findThreaded(ArrayList<KeyPoint> points, BufferedImage img){
@@ -93,6 +97,11 @@ public class KeypointDetection {
 							found = false;
 							break;
 						}
+//						if(points.indexOf(p) > 0){
+//							System.out.println(p);
+//							System.out.println("x: " + x + " | y: " + y);
+//							System.out.println(new Color(img.getRGB(x + p.getX(), y + p.getY())));
+//						}
 						if(!p.check(new Color(img.getRGB(x + p.getX(), y + p.getY())))){
 							found = false;
 							break;
