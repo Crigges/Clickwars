@@ -1,6 +1,7 @@
 package systems.crigges.main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Profile {
 	private int hotkeyCode;
@@ -85,6 +86,7 @@ public class Profile {
 
 	public void setTraitPos(int slot, int value) {
 		traitPos[slot] = value;
+		//System.out.println(Arrays.toString(traitPos));
 	}
 	
 	public Object[] getModelEntry(){

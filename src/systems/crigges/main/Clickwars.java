@@ -310,6 +310,7 @@ public class Clickwars {
 						hotkeyMod = arg0.getModifiers();
 						currentProfile.setHotkeyCode(pressedKeyCode);
 						currentProfile.setHotkeyMod(hotkeyMod);
+						currentProfile.setHotkeyName(mod + pressedKeyText);
 						DefaultTableModel model = (DefaultTableModel) profileTable.getModel();
 						model.setValueAt(mod + pressedKeyText, profileTable.getSelectedRow(), 2);
 						GlobalScreen.removeNativeKeyListener(this);
@@ -433,9 +434,6 @@ public class Clickwars {
 					currentProfile.setInterfaceSize((InterfaceSize) interfaceBox.getSelectedItem());
 					currentProfile.setProf((Profession) professionBox.getSelectedItem());
 					currentProfile.setName(nameField.getText());
-					currentProfile.setHotkeyName(hotkeyButton.getText());
-					currentProfile.setHotkeyCode(hotkeyCode);
-					currentProfile.setHotkeyMod(hotkeyMod);
 					profiles.add(currentProfile);
 					model.addRow(currentProfile.getModelEntry());
 					profileTable.getSelectionModel().setSelectionInterval(0, model.getRowCount() - 1);
@@ -561,16 +559,24 @@ public class Clickwars {
 		int startX = 230;
 		int stepX = 160;
 		int startY = 10;
+		int groupPos = 0;
 		for(int lines = 0; lines<traitlineTraits.length; lines++){
 			i = 0;
 			for(int x = startX; x<stepX*3 + startX; x+= stepX) {
+				ArrayList<JButton> group = new ArrayList<>();
+				int localPos = 0;
 				for(int y = startY; y<40*3 + startY; y+= 40) {
-					traitlineTraits[lines][i] = new JButton(ResourceFactory.getClearTrait());
+					Trait trait = ResourceFactory.getClearTrait(localPos);
+					traitlineTraits[lines][i] = new JButton(trait);
+					group.add(traitlineTraits[lines][i]);
+					traitlineTraits[lines][i].addActionListener(new TraitListener(groupPos, group, trait));
 					traitlineTraits[lines][i].setBorder(null);
 					traitlines[lines].add(traitlineTraits[lines][i]);
 					traitlineTraits[lines][i].setBounds(x, y, 32, 32);
 					i++;
+					localPos++;
 				}
+				groupPos++;
 			}
 		}
 
@@ -627,20 +633,70 @@ public class Clickwars {
 		
 	}
 	
+	private class TraitListener implements ActionListener{
+		private int pos;
+		private ArrayList<JButton> group;
+		private Trait trait;
+		
+		public TraitListener(int pos, ArrayList<JButton> group, Trait trait) {
+			this.pos = pos;
+			this.group = group;
+			this.trait = trait;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			currentProfile.setTraitPos(pos, trait.getPos());
+			for(JButton but : group){
+				if(but == e.getSource()){
+					but.setIcon(ResourceFactory.getSelectedTrait(trait.getPos()));
+				}else{
+					but.setIcon(ResourceFactory.getClearTrait(trait.getPos()));
+				}
+			}
+			
+		}
+		
+	}
+	
 	
 	private void loadProfile(Profile p){
 		currentProfile = p;
 		hotkeyCode = p.getHotkeyCode();
 		hotkeyMod = p.getHotkeyMod();
+		hotkeyButton.setText(p.getHotkeyName());
+		interfaceBox.setSelectedItem(p.getInterfaceSize());
+		professionBox.setSelectedItem(p.getProf());
 		for (int i = 0; i < buttonSlots.length; i++) {
 			if(p.getSkillPos(i) != -1){
 				buttonSlots[i].setIcon(ResourceFactory.getSkill(p.getProf(), p.getSkillPos(i), i));
+			}else{
+				buttonSlots[i].setIcon(new ImageIcon(Clickwars.class.getResource("/other/clearslot.png")));
 			}
 		}
 		for (int i = 0; i < traitlines.length; i++) {
 			if(p.getTraitlinePos(i) != -1){
 				traitlines[i].setImage(Toolkit.getDefaultToolkit().getImage(ResourceFactory.getTraitline(p.getProf(), p.getTraitlinePos(i), i).getResource()));
+			}else{
+				traitlines[i].setImage(Toolkit.getDefaultToolkit().getImage(Clickwars.class.getResource("/other/notraitline.png")));
 			}
+		}
+		int[] traitPos = p.getAllTraitPos();
+		int sel = 0;
+		for(int lines = 0; lines<traitlineTraits.length; lines++){
+			for(int group = 0; group<3; group++){
+				int sep = 0;
+				for (int j = group*3; j < 9; j++) {	
+					traitlineTraits[lines][j].setIcon(ResourceFactory.getClearTrait(sep));
+					sep++;
+				}
+				if(traitPos[sel] != -1){
+					traitlineTraits[lines][group * 3 + traitPos[sel]].setIcon(ResourceFactory.getSelectedTrait(traitPos[sel]));
+				}
+				sel++;
+			}
+			
+				
 		}
 	}
 	

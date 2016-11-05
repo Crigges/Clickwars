@@ -45,7 +45,6 @@ public class ResourceFactory {
 	}
 	
 	public static int getTraitlineCount(Profession prof, int slot) {
-		System.out.println(slot);
 		if(slot == 2){
 			return 6;
 		}else{
@@ -59,8 +58,12 @@ public class ResourceFactory {
 		return new Traitline(res, index);
 	}
 	
-	public static Trait getClearTrait(){
-		return new Trait(getResource("/other/notrait.png"), -1);
+	public static Trait getClearTrait(int pos){
+		return new Trait(getResource("/other/notrait.png"), pos);
+	}
+	
+	public static Trait getSelectedTrait(int pos){
+		return new Trait(getResource("/other/selectedtraitsmall.png"), pos);
 	}
 	
 	private static void initChrono() {
