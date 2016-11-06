@@ -8,8 +8,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class ClickBot {
-	private static final int defaultDelay = 25;
-	private static final int fadeDelay = 350;
+	private static final int defaultDelay = 30 ;
+	private static final int fadeDelay = 400;
 	private Robot robot;
 	private KeypointDetection detec;
 	
@@ -60,9 +60,18 @@ public class ClickBot {
 					click();
 					delay();
 					Point skillOffset = OffsetBase.getTraitlineOffset(profile.getInterfaceSize(), skill);
-					fp.translate(skillOffset.x, skillOffset.y);
+					Point t = new Point(skillOffset.x + fp.x, skillOffset.y + fp.y);
+					robot.mouseMove(t.x, t.y);
+					click();
+					
 					robot.mouseMove(fp.x, fp.y);
 					click();
+					delay();
+					skillOffset = OffsetBase.getSecondaryTraitlineOffset(profile.getInterfaceSize(), skill);
+					t = new Point(skillOffset.x + fp.x, skillOffset.y + fp.y);
+					robot.mouseMove(t.x, t.y);
+					click();
+					
 					slot++;
 				}
 			}
@@ -95,6 +104,7 @@ public class ClickBot {
 			}
 		}
 		if(hasSpells){
+			delay();
 			Point p = detec.find(KeyPointBase.getSkillBar(profile.getInterfaceSize()));
 			if(p == null){
 				System.out.println("nofound");

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class KeyPoint{
-	private static final int tollerance = 5;
+	private static final int tollerance = 15;
 	
 	private int x, y;
 	private int r, b, g;

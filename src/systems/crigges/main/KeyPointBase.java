@@ -22,12 +22,37 @@ public class KeyPointBase {
 
 
 	private static boolean init() {
-		initLargerInterface();
+		loadNormalInterface();
+		loadLargerInterface();
 		return false;
 	}
+	
+	private static void loadNormalInterface() {
+		ArrayList<KeyPoint> barPoints = new ArrayList<>();
+		skillBarPoints.put(InterfaceSize.Normal, barPoints);
+		
+		barPoints.add(new KeyPoint(0, 0, 211, 183, 145));
+		barPoints.add(new KeyPoint(220, 0, 211, 183, 145));
+		barPoints.add(new KeyPoint(220, 5, 1, 1, 1));
+		barPoints.add(new KeyPoint(110, 0, 211, 183, 145));
+		barPoints.add(new KeyPoint(110, 5, 1, 1, 1));
+		barPoints.add(new KeyPoint(165, 0, 211, 183, 145));
+		
+		
+		ArrayList<KeyPoint> heroPoints = new ArrayList<>();
+		heroPanelPoints.put(InterfaceSize.Normal, heroPoints);
+		
+		heroPoints.add(new KeyPoint(0, 0, 239, 231, 222));
+		heroPoints.add(new KeyPoint(9, 9, 247, 247, 239));
+		heroPoints.add(new KeyPoint(29, 9, 222, 215, 198));
+		heroPoints.add(new KeyPoint(11, 28, 239, 223, 198));
+		heroPoints.add(new KeyPoint(25, 64, 0, 0, 0));
+		heroPoints.add(new KeyPoint(36, 48, 198, 195, 189));
+	}
+	
 
 
-	private static void initLargerInterface() {
+	private static void loadLargerInterface() {
 		ArrayList<KeyPoint> barPoints = new ArrayList<>();
 		skillBarPoints.put(InterfaceSize.Larger, barPoints);
 		
@@ -49,6 +74,7 @@ public class KeyPointBase {
 		heroPoints.add(new KeyPoint(31, 78, 0, 0, 0));
 		heroPoints.add(new KeyPoint(87, 87, 206, 199, 181));
 	}
+	
 	
 	
 	

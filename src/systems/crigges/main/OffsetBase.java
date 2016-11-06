@@ -8,6 +8,7 @@ public class OffsetBase {
 	private static HashMap<InterfaceSize, Point[]> skillOffsets = new HashMap<>();
 	private static HashMap<InterfaceSize, Point[]> traitlineIconOffsets = new HashMap<>();
 	private static HashMap<InterfaceSize, Point[]> traitlineOffsets = new HashMap<>();
+	private static HashMap<InterfaceSize, Point[]> secondaryTraitlineOffsets = new HashMap<>();
 	private static HashMap<InterfaceSize, Point[]> traitOffsets = new HashMap<>();
 	private static HashMap<InterfaceSize, Point> buildTabOffset = new HashMap<>();
 	private static final boolean init = init();
@@ -33,6 +34,10 @@ public class OffsetBase {
 		return traitlineOffsets.get(size)[slot];
 	}
 	
+	public static Point getSecondaryTraitlineOffset(InterfaceSize size, int slot){
+		return secondaryTraitlineOffsets.get(size)[slot];
+	}
+	
 	public static Point getTraitOffset(InterfaceSize size, int slot){
 		return traitOffsets.get(size)[slot];
 	}
@@ -40,8 +45,85 @@ public class OffsetBase {
 
 
 	private static boolean init() {
+		initNormal();
 		initLarger();
 		return false;
+	}
+	
+	private static void initNormal() {
+		Point[] res = new Point[5];
+		res[0] = new Point(-17, 34);
+		res[1] = new Point(38, 34);
+		res[2] = new Point(94, 34);
+		res[3] = new Point(149, 34);
+		res[4] = new Point(204, 34);
+		skillBarOffsets.put(InterfaceSize.Normal, res);
+		
+		res = new Point[24];
+		res[0] = new Point(-75, -65);
+		res[1] = new Point(-25, -65);
+		res[2] = new Point(25, -65);
+		res[3] = new Point(75, -65);
+		res[4] = new Point(-75, -115);
+		res[5] = new Point(-25, -115);
+		res[6] = new Point(25, -115);
+		res[7] = new Point(75, -115);
+		res[8] = new Point(-75, -165);
+		res[9] = new Point(-25, -165);
+		res[10] = new Point(25, -165);
+		res[11] = new Point(75, -165);
+		res[12] = new Point(-75, -215);
+		res[13] = new Point(-25, -215);
+		res[14] = new Point(25, -215);
+		res[15] = new Point(75, -215);
+		res[16] = new Point(-75, -265);
+		res[17] = new Point(-25, -265);
+		res[18] = new Point(25, -265);
+		res[19] = new Point(75, -265);
+		res[20] = new Point(-75, -315);
+		res[21] = new Point(-25, -315);
+		res[22] = new Point(25, -315);
+		res[23] = new Point(75, -315);
+		skillOffsets.put(InterfaceSize.Normal, res);
+		
+		Point buildTab = new Point(44, 157);
+		buildTabOffset.put(InterfaceSize.Normal, buildTab);
+		
+		res = new Point[3];
+		res[0] = new Point(467, 404);
+		res[1] = new Point(467, 539);
+		res[2] = new Point(467, 676);
+		traitlineIconOffsets.put(InterfaceSize.Normal, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-73, -44);
+		res[1] = new Point(-73, 5);
+		res[2] = new Point(-73, 56);
+		res[3] = new Point(-22, -44);
+		res[4] = new Point(-22, 5);
+		res[5] = new Point(-22, 56);
+		traitlineOffsets.put(InterfaceSize.Normal, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-123, -44);
+		res[1] = new Point(-123, 5);
+		res[2] = new Point(-123, 56);
+		res[3] = new Point(-174, -44);
+		res[4] = new Point(-174, 5);
+		res[5] = new Point(-174, 56);
+		secondaryTraitlineOffsets.put(InterfaceSize.Normal, res);
+		
+		res = new Point[9];
+		res[0] = new Point(173, -43);
+		res[1] = new Point(173, 0);
+		res[2] = new Point(173, 43);
+		res[3] = new Point(318, -43);
+		res[4] = new Point(318, 0);
+		res[5] = new Point(318, 43);
+		res[6] = new Point(462, -43);
+		res[7] = new Point(462, 0);
+		res[8] = new Point(462, 43);
+		traitOffsets.put(InterfaceSize.Normal, res);
 	}
 
 
@@ -99,6 +181,15 @@ public class OffsetBase {
 		res[5] = new Point(-30, 70);
 		traitlineOffsets.put(InterfaceSize.Larger, res);
 		
+		res = new Point[6];
+		res[0] = new Point(-155, -55);
+		res[1] = new Point(-155, 10);
+		res[2] = new Point(-155, 70);
+		res[3] = new Point(-218, -55);
+		res[4] = new Point(-218, 10);
+		res[5] = new Point(-218, 70);
+		secondaryTraitlineOffsets.put(InterfaceSize.Larger, res);
+		
 		res = new Point[9];
 		res[0] = new Point(210, -53);
 		res[1] = new Point(210, 0);
@@ -110,7 +201,6 @@ public class OffsetBase {
 		res[7] = new Point(565, 0);
 		res[8] = new Point(565, 53);
 		traitOffsets.put(InterfaceSize.Larger, res);
-		
 	}
 
 }

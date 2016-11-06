@@ -25,10 +25,11 @@ public class KeypointDetection {
 		KeypointDetection detec = new KeypointDetection();
 		BufferedImage img = detec.robot.createScreenCapture(detec.screenSize);
 		long time = System.currentTimeMillis();
+		detec.takeScreen();
 		for(int i = 0; i < 1; i++){
-			System.out.println(detec.find(KeyPointBase.getHeroPanel(InterfaceSize.Larger)));
+			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Normal)));
 		}
-		System.out.println(System.currentTimeMillis() - time);
+		//System.out.println(System.currentTimeMillis() - time);
 	}
 	
 	
