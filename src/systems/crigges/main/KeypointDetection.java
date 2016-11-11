@@ -27,7 +27,7 @@ public class KeypointDetection {
 		long time = System.currentTimeMillis();
 		detec.takeScreen();
 		for(int i = 0; i < 1; i++){
-			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Normal)));
+			System.out.println(detec.find(KeyPointBase.getHeroPanel(InterfaceSize.Large)));
 		}
 		//System.out.println(System.currentTimeMillis() - time);
 	}
@@ -98,7 +98,7 @@ public class KeypointDetection {
 							found = false;
 							break;
 						}
-//						if(points.indexOf(p) > 0){
+//						if(points.indexOf(p) > 4){
 //							System.out.println(p);
 //							System.out.println("x: " + x + " | y: " + y);
 //							System.out.println(new Color(img.getRGB(x + p.getX(), y + p.getY())));

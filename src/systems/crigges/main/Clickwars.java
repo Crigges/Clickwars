@@ -418,6 +418,7 @@ public class Clickwars {
 						profiles.remove(profileTable.getSelectedRow());
 						DefaultTableModel model = (DefaultTableModel)profileTable.getModel();
 						model.removeRow(profileTable.getSelectedRow());
+						Profile.saveProfiles();
 					}
 				}
 			}
@@ -437,6 +438,7 @@ public class Clickwars {
 					profiles.add(currentProfile);
 					model.addRow(currentProfile.getModelEntry());
 					profileTable.getSelectionModel().setSelectionInterval(0, model.getRowCount() - 1);
+					Profile.saveProfiles();
 				}
 			}
 		});
@@ -478,13 +480,17 @@ public class Clickwars {
 	        };
 	    };
 	    profileTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		profileTable.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Name", "Profession", "Hotkey"
-			}
-		));
+	    DefaultTableModel tableModel = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Name", "Profession", "Hotkey"
+				}
+			);
+		profileTable.setModel(tableModel);
+		for(Profile p : profiles){
+			tableModel.addRow(p.getModelEntry());
+		}
 
 		profileTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			

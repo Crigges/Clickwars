@@ -1,9 +1,22 @@
 package systems.crigges.main;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Profile {
+public class Profile implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private static transient ArrayList list;
+	
 	private int hotkeyCode;
 	private int hotkeyMod;
 	private InterfaceSize interfaceSize;
@@ -66,27 +79,32 @@ public class Profile {
 
 	public void setHotkeyMod(int hotkeyMod) {
 		this.hotkeyMod = hotkeyMod;
+		saveProfiles();
 	}
 
 	public void setInterfaceSize(InterfaceSize interfaceSize) {
 		this.interfaceSize = interfaceSize;
+		saveProfiles();
 	}
 
 	public void setProf(Profession prof) {
 		this.prof = prof;
+		saveProfiles();
 	}
 
 	public void setSkillPos(int slot, int value) {
 		skillPos[slot] = value;
+		saveProfiles();
 	}
 
 	public void setTraitlinePos(int slot, int value) {
 		traitlinePos[slot] = value;
+		saveProfiles();
 	}
 
 	public void setTraitPos(int slot, int value) {
 		traitPos[slot] = value;
-		//System.out.println(Arrays.toString(traitPos));
+		saveProfiles();
 	}
 	
 	public Object[] getModelEntry(){
@@ -98,7 +116,35 @@ public class Profile {
 	}
 
 	public static ArrayList<Profile> get() {
-		return new ArrayList<>();
+		FileInputStream fout;
+		try {
+			FileInputStream fin = new FileInputStream("profiles.crig");
+			ObjectInputStream in = new ObjectInputStream(fin);
+			list = (ArrayList) in.readObject();
+			return list;
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			list = new ArrayList<>();
+			return list;
+		}
+		
+	
+	}
+	
+	public static void saveProfiles(){
+		try {
+			File f = new File("profiles.crig");
+			if(!f.exists()){
+				f.createNewFile();
+			}
+			FileOutputStream fout = new FileOutputStream(f);
+			ObjectOutputStream out = new ObjectOutputStream(fout);
+			out.writeObject(list);
+			fout.close();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getName() {
@@ -115,6 +161,7 @@ public class Profile {
 
 	public void setHotkeyName(String hotkeyName) {
 		this.hotkeyName = hotkeyName;
+		saveProfiles();
 	}
 
 	public int[] getAllSkillPos() {

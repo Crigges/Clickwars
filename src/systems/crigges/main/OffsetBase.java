@@ -45,9 +45,87 @@ public class OffsetBase {
 
 
 	private static boolean init() {
+		initSmall();
 		initNormal();
+		initLarge();
 		initLarger();
 		return false;
+	}
+	
+	private static void initSmall() {
+		Point[] res = new Point[5];
+		res[0] = new Point(-16, 29);
+		res[1] = new Point(36, 29);
+		res[2] = new Point(87, 29);
+		res[3] = new Point(135, 29);
+		res[4] = new Point(185, 29);
+		skillBarOffsets.put(InterfaceSize.Small, res);
+		
+		res = new Point[24];
+		res[0] = new Point(-68, -58);
+		res[1] = new Point(-22, -58);
+		res[2] = new Point(22, -58);
+		res[3] = new Point(68, -58);
+		res[4] = new Point(-68, -103);
+		res[5] = new Point(-22, -103);
+		res[6] = new Point(22, -103);
+		res[7] = new Point(68, -103);
+		res[8] = new Point(-68, -147);
+		res[9] = new Point(-22, -147);
+		res[10] = new Point(22, -147);
+		res[11] = new Point(68, -147);
+		res[12] = new Point(-68, -192);
+		res[13] = new Point(-22, -192);
+		res[14] = new Point(22, -192);
+		res[15] = new Point(68, -192);
+		res[16] = new Point(-68, -237);
+		res[17] = new Point(-22, -237);
+		res[18] = new Point(22, -237);
+		res[19] = new Point(68, -237);
+		res[20] = new Point(-68, -283);
+		res[21] = new Point(-22, -283);
+		res[22] = new Point(22, -283);
+		res[23] = new Point(68, -283);
+		skillOffsets.put(InterfaceSize.Small, res);
+		
+		Point buildTab = new Point(38, 140);
+		buildTabOffset.put(InterfaceSize.Small, buildTab);
+		
+		res = new Point[3];
+		res[0] = new Point(420, 362);
+		res[1] = new Point(420, 483);
+		res[2] = new Point(420, 606);
+		traitlineIconOffsets.put(InterfaceSize.Small, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-66, -38);
+		res[1] = new Point(-66, 5);
+		res[2] = new Point(-66, 52);
+		res[3] = new Point(-22, -38);
+		res[4] = new Point(-22, 5);
+		res[5] = new Point(-22, 52);
+		traitlineOffsets.put(InterfaceSize.Small, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-113, -39);
+		res[1] = new Point(-113, 5);
+		res[2] = new Point(-113, 51);
+		res[3] = new Point(-158, -39);
+		res[4] = new Point(-158, 5);
+		res[5] = new Point(-158, 51);
+		secondaryTraitlineOffsets.put(InterfaceSize.Small, res);
+		
+		res = new Point[9];
+		res[0] = new Point(154, -39);
+		res[1] = new Point(154, 0);
+		res[2] = new Point(154, 39);
+		res[3] = new Point(283, -39);
+		res[4] = new Point(283, 0);
+		res[5] = new Point(283, 39);
+		res[6] = new Point(413, -39);
+		res[7] = new Point(413, 0);
+		res[8] = new Point(413, 39);
+		traitOffsets.put(InterfaceSize.Small, res);
 	}
 	
 	private static void initNormal() {
@@ -125,7 +203,82 @@ public class OffsetBase {
 		res[8] = new Point(462, 43);
 		traitOffsets.put(InterfaceSize.Normal, res);
 	}
-
+	
+	private static void initLarge() {
+		Point[] res = new Point[5];
+		res[0] = new Point(-19, 36);
+		res[1] = new Point(44, 36);
+		res[2] = new Point(105, 36);
+		res[3] = new Point(167, 36);
+		res[4] = new Point(228, 36);
+		skillBarOffsets.put(InterfaceSize.Large, res);
+		
+		res = new Point[24];
+		res[0] = new Point(-85, -70);
+		res[1] = new Point(-27, -70);
+		res[2] = new Point(27, -70);
+		res[3] = new Point(85, -70);
+		res[4] = new Point(-85, -125);
+		res[5] = new Point(-27, -125);
+		res[6] = new Point(27, -125);
+		res[7] = new Point(85, -125);
+		res[8] = new Point(-85, -181);
+		res[9] = new Point(-27, -181);
+		res[10] = new Point(27, -181);
+		res[11] = new Point(85, -181);
+		res[12] = new Point(-85, -235);
+		res[13] = new Point(-27, -235);
+		res[14] = new Point(27, -235);
+		res[15] = new Point(85, -235);
+		res[16] = new Point(-85, -290);
+		res[17] = new Point(-27, -290);
+		res[18] = new Point(27, -290);
+		res[19] = new Point(85, -290);
+		res[20] = new Point(-85, -348);
+		res[21] = new Point(-27, -348);
+		res[22] = new Point(27, -348);
+		res[23] = new Point(85, -348);
+		skillOffsets.put(InterfaceSize.Large, res);
+		
+		Point buildTab = new Point(47, 175);
+		buildTabOffset.put(InterfaceSize.Large, buildTab);
+		
+		res = new Point[3];
+		res[0] = new Point(518, 447);
+		res[1] = new Point(518, 597);
+		res[2] = new Point(518, 748);
+		traitlineIconOffsets.put(InterfaceSize.Large, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-82, -46);
+		res[1] = new Point(-82, 10);
+		res[2] = new Point(-82, 67);
+		res[3] = new Point(-25, -46);
+		res[4] = new Point(-25, 10);
+		res[5] = new Point(-25, 67);
+		traitlineOffsets.put(InterfaceSize.Large, res);
+		
+		res = new Point[6];
+		res[0] = new Point(-139, -46);
+		res[1] = new Point(-139, 10);
+		res[2] = new Point(-139, 67);
+		res[3] = new Point(-195, -46);
+		res[4] = new Point(-195, 10);
+		res[5] = new Point(-195, 67);
+		secondaryTraitlineOffsets.put(InterfaceSize.Large, res);
+		
+		res = new Point[9];
+		res[0] = new Point(191, -48);
+		res[1] = new Point(191, 0);
+		res[2] = new Point(191, 48);
+		res[3] = new Point(351, -48);
+		res[4] = new Point(351, 0);
+		res[5] = new Point(351, 48);
+		res[6] = new Point(510, -48);
+		res[7] = new Point(510, 0);
+		res[8] = new Point(510, 48);
+		traitOffsets.put(InterfaceSize.Large, res);
+	}
 
 	private static void initLarger() {
 		Point[] res = new Point[5];
