@@ -193,6 +193,69 @@ public class ResourceFactory {
 		
 	}
 	
+	private static void initBerserker() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/tempest/Glyph_of_Elemental_Harmony.png");
+		heals[1] = getResource("/tempest/Ether_Renewal.png");
+		heals[2] = getResource("/tempest/Signet_of_Restoration.png");
+		heals[3] = getResource("/tempest/Arcane_Brilliance.png");
+		heals[4] = getResource("/tempest/'Wash_the_Pain_Away!'.png");
+		healSkills.put(Profession.Tempest, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/tempest/Arcane_Wave.png");
+		utils[1] = getResource("/tempest/Arcane_Shield.png");
+		utils[2] = getResource("/tempest/Arcane_Power.png");
+		utils[3] = getResource("/tempest/Arcane_Blast.png");
+		
+		utils[4] = getResource("/tempest/Glyph_of_Elemental_Power.png");
+		utils[5] = getResource("/tempest/Glyph_of_Storms.png");
+		utils[6] = getResource("/tempest/Glyph_of_Lesser_Elementals.png");
+		utils[7] = getResource("/tempest/Glyph_of_Renewal.png");
+		
+		utils[8] = getResource("/tempest/Signet_of_Fire.png");
+		utils[9] = getResource("/tempest/Signet_of_Water.png");
+		utils[10] = getResource("/tempest/Signet_of_Air.png");
+		utils[11] = getResource("/tempest/Signet_of_Earth.png");
+		
+		utils[12] = getResource("/tempest/Cleansing_Fire.png");
+		utils[13] = getResource("/tempest/Mist_Form.png");
+		utils[14] = getResource("/tempest/Lightning_Flash.png");
+		utils[15] = getResource("/tempest/Armor_of_Earth.png");
+		
+		utils[16] = getResource("/tempest/Conjure_Flame_Axe.png");
+		utils[17] = getResource("/tempest/Conjure_Frost_Bow.png");
+		utils[18] = getResource("/tempest/Conjure_Lightning_Hammer.png");
+		utils[19] = getResource("/tempest/Conjure_Earth_Shield.png");
+		
+		utils[20] = getResource("/tempest/'Feel_the_Burn!'.png");
+		utils[21] = getResource("/tempest/'Flash-Freeze!'.png");
+		utils[22] = getResource("/tempest/'Eye_of_the_Storm!'.png");
+		utils[23] = getResource("/tempest/'Aftershock!'.png");
+		
+		
+		
+		utilSkills.put(Profession.Tempest, utils);
+
+		
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/tempest/Glyph_of_Elementals.png");
+		elite[1] = getResource("/tempest/Conjure_Fiery_Greatsword.png");
+		elite[2] = getResource("/tempest/Tornado.png");
+		elite[3] = getResource("/tempest/'Rebound!'.png");
+		eliteSkills.put(Profession.Tempest, elite);
+
+		URL[] tempestTraitlines = new URL[6];
+		tempestTraitlines[0] = getResource("/tempest/fire.png");
+		tempestTraitlines[1] = getResource("/tempest/air.png");
+		tempestTraitlines[2] = getResource("/tempest/earth.png");
+		tempestTraitlines[3] = getResource("/tempest/water.png");
+		tempestTraitlines[4] = getResource("/tempest/arcane.png");
+		tempestTraitlines[5] = getResource("/tempest/tempest.png");
+		traitlines.put(Profession.Tempest, tempestTraitlines);
+		
+	}
+	
 	
 	public static URL getResource(String path){
 		return ResourceFactory.class.getResource(path);
