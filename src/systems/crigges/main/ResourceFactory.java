@@ -182,14 +182,14 @@ public class ResourceFactory {
 		elite[3] = getResource("/tempest/'Rebound!'.png");
 		eliteSkills.put(Profession.Tempest, elite);
 
-		URL[] traitlines = new URL[6];
-		traitlines[0] = getResource("/tempest/fire.png");
-		traitlines[1] = getResource("/tempest/air.png");
-		traitlines[2] = getResource("/tempest/earth.png");
-		traitlines[3] = getResource("/tempest/water.png");
-		traitlines[4] = getResource("/tempest/arcane.png");
-		traitlines[5] = getResource("/tempest/tempest.png");
-		traitlines.put(Profession.Tempest, traitlines);
+		URL[] tempestTraitlines = new URL[6];
+		tempestTraitlines[0] = getResource("/tempest/fire.png");
+		tempestTraitlines[1] = getResource("/tempest/air.png");
+		tempestTraitlines[2] = getResource("/tempest/earth.png");
+		tempestTraitlines[3] = getResource("/tempest/water.png");
+		tempestTraitlines[4] = getResource("/tempest/arcane.png");
+		tempestTraitlines[5] = getResource("/tempest/tempest.png");
+		traitlines.put(Profession.Tempest, tempestTraitlines);
 		
 	}
 	
