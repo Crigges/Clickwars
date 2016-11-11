@@ -27,7 +27,7 @@ public class KeypointDetection {
 		long time = System.currentTimeMillis();
 		detec.takeScreen();
 		for(int i = 0; i < 1; i++){
-			System.out.println(detec.find(KeyPointBase.getSkillBar(InterfaceSize.Normal)));
+			System.out.println(detec.find(KeyPointBase.getHeroPanel(InterfaceSize.Small)));
 		}
 		//System.out.println(System.currentTimeMillis() - time);
 	}

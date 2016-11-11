@@ -67,13 +67,13 @@ public class ResourceFactory {
 	}
 	
 	private static void initChrono() {
-		URL[] chronoHeals = new URL[5];
-		chronoHeals[0] = getResource("/chrono/Ether_Feast.png");
-		chronoHeals[1] = getResource("/chrono/Mirror.png");
-		chronoHeals[2] = getResource("/chrono/Mantra_of_Recovery.png");
-		chronoHeals[3] = getResource("/chrono/Signet_of_the_Ether.png");
-		chronoHeals[4] = getResource("/chrono/Well_of_Eternity.png");
-		healSkills.put(Profession.Chronomancer, chronoHeals);
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/chrono/Ether_Feast.png");
+		heals[1] = getResource("/chrono/Mirror.png");
+		heals[2] = getResource("/chrono/Mantra_of_Recovery.png");
+		heals[3] = getResource("/chrono/Signet_of_the_Ether.png");
+		heals[4] = getResource("/chrono/Well_of_Eternity.png");
+		healSkills.put(Profession.Chronomancer, heals);
 		
 		URL[] chronoUtils  = new URL[24];
 		chronoUtils[0] = getResource("/chrono/Signet_of_Inspiration.png");

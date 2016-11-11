@@ -10,6 +10,12 @@ public class KeyPoint{
 	
 	private int x, y;
 	private int r, b, g;
+	private boolean inverted = false;
+	
+	public KeyPoint(int x, int y, int r, int g, int b, boolean inverted){
+		this(x, y, r, g, b);
+		this.inverted = inverted;
+	}
 	
 	public KeyPoint(int x, int y, int r, int g, int b){
 		this.x = x;
@@ -24,9 +30,15 @@ public class KeyPoint{
 	}
 	
 	public boolean check(Color c, int tollerance){
-		return (Math.abs(r - c.getRed()) <= tollerance) 
+		if(inverted){
+			return !((Math.abs(r - c.getRed()) <= tollerance) 
+					&& (Math.abs(g - c.getGreen()) <= tollerance) 
+					&& (Math.abs(b - c.getBlue()) <= tollerance));
+		}else{
+			return (Math.abs(r - c.getRed()) <= tollerance) 
 				&& (Math.abs(g - c.getGreen()) <= tollerance) 
 				&& (Math.abs(b - c.getBlue()) <= tollerance);
+		}
 	}
 	
 	public int getX(){

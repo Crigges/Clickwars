@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class ClickBot {
-	private static final int defaultDelay = 30 ;
+	private static final int defaultDelay = 25;
 	private static final int fadeDelay = 400;
 	private Robot robot;
 	private KeypointDetection detec;
@@ -33,6 +33,7 @@ public class ClickBot {
 		for(int skill : profile.getAllTraitlinePos()){
 			if(skill != -1){
 				hasTraits = true;
+				System.out.println("hastraits");
 			}
 		}
 		if(hasTraits){
