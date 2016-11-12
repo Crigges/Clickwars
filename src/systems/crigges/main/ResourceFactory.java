@@ -26,6 +26,7 @@ public class ResourceFactory {
 		initHerald();
 		initDragonhunter();
 		initReaper();
+		initScrapper();
 		return false;
 	}
 	
@@ -504,6 +505,65 @@ public class ResourceFactory {
 		reaperTraitlines[4] = getResource("/reaper/soul reaping.png");
 		reaperTraitlines[5] = getResource("/reaper/reaper.png");
 		traitlines.put(Profession.Reaper, reaperTraitlines);
+		
+	}
+	
+	private static void initScrapper() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/scrapper/Elixir_H.png");
+		heals[1] = getResource("/scrapper/Med_Kit.png");
+		heals[2] = getResource("/scrapper/A.E.D..png");
+		heals[3] = getResource("/scrapper/Healing_Turret.png");
+		heals[4] = getResource("/scrapper/Medic_Gyro.png");
+		healSkills.put(Profession.Scrapper, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/scrapper/Rifle_Turret.png");
+		utils[1] = getResource("/scrapper/Flame_Turret.png");
+		utils[2] = getResource("/scrapper/Net_Turret.png");
+		utils[3] = getResource("/scrapper/Thumper_Turret.png");
+	
+		utils[4] = getResource("/scrapper/Rocket_Turret.png");
+		utils[5] = getResource("/scrapper/Elixir_B.png");
+		utils[6] = getResource("/scrapper/Elixir_U.png");
+		utils[7] = getResource("/scrapper/Elixir_S.png");
+		
+		utils[8] = getResource("/scrapper/Elixir_C.png");
+		utils[9] = getResource("/scrapper/Elixir_R.png");
+		utils[10] = getResource("/scrapper/Grenade_Kit.png");
+		utils[11] = getResource("/scrapper/Bomb_Kit.png");
+		
+		utils[12] = getResource("/scrapper/Flamethrower.png");
+		utils[13] = getResource("/scrapper/Elixir_Gun.png");
+		utils[14] = getResource("/scrapper/Tool_Kit.png");
+		utils[15] = getResource("/scrapper/Throw_Mine.png");
+		
+		utils[16] = getResource("/scrapper/Utility_Goggles.png");
+		utils[17] = getResource("/scrapper/Rocket_Boots.png");
+		utils[18] = getResource("/scrapper/Personal_Battering_Ram.png");
+		utils[19] = getResource("/scrapper/Slick_Shoes.png");
+		
+		utils[20] = getResource("/scrapper/Bulwark_Gyro.png");
+		utils[21] = getResource("/scrapper/Purge_Gyro.png");
+		utils[22] = getResource("/scrapper/Blast_Gyro_Tag.png");
+		utils[23] = getResource("/scrapper/Shredder_Gyro.png");
+		utilSkills.put(Profession.Scrapper, utils);
+
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/scrapper/Supply_Crate.png");
+		elite[1] = getResource("/scrapper/Elixir_X.png");
+		elite[2] = getResource("/scrapper/Elite_Mortar_Kit.png");
+		elite[3] = getResource("/scrapper/Sneak_Gyro.png");
+		eliteSkills.put(Profession.Scrapper, elite);
+
+		URL[] scrapperTraitlines = new URL[6];
+		scrapperTraitlines[0] = getResource("/scrapper/explosives.png");
+		scrapperTraitlines[1] = getResource("/scrapper/firearms.png");
+		scrapperTraitlines[2] = getResource("/scrapper/inventions.png");
+		scrapperTraitlines[3] = getResource("/scrapper/alchemy.png");
+		scrapperTraitlines[4] = getResource("/scrapper/tools.png");
+		scrapperTraitlines[5] = getResource("/scrapper/scrapper.png");
+		traitlines.put(Profession.Scrapper, scrapperTraitlines);
 		
 	}
 
