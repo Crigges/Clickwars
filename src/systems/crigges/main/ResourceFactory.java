@@ -20,6 +20,7 @@ public class ResourceFactory {
 	private static boolean init() {
 		initChrono();
 		initTempest();
+		initBerserker();
 		return false;
 	}
 	
@@ -195,64 +196,64 @@ public class ResourceFactory {
 	
 	private static void initBerserker() {
 		URL[] heals = new URL[5];
-		heals[0] = getResource("/tempest/Glyph_of_Elemental_Harmony.png");
-		heals[1] = getResource("/tempest/Ether_Renewal.png");
-		heals[2] = getResource("/tempest/Signet_of_Restoration.png");
-		heals[3] = getResource("/tempest/Arcane_Brilliance.png");
-		heals[4] = getResource("/tempest/'Wash_the_Pain_Away!'.png");
-		healSkills.put(Profession.Tempest, heals);
+		heals[0] = getResource("/berserker/'To_the_Limit!'.png");
+		heals[1] = getResource("/berserker/Mending.png");
+		heals[2] = getResource("/berserker/Healing_Signet.png");
+		heals[3] = getResource("/berserker/Defiant_Stance.png");
+		heals[4] = getResource("/berserker/Blood_Reckoning.png");
+		healSkills.put(Profession.Berserker, heals);
 		
 		URL[] utils  = new URL[24];
-		utils[0] = getResource("/tempest/Arcane_Wave.png");
-		utils[1] = getResource("/tempest/Arcane_Shield.png");
-		utils[2] = getResource("/tempest/Arcane_Power.png");
-		utils[3] = getResource("/tempest/Arcane_Blast.png");
+		utils[0] = getResource("/berserker/Kick_(warrior_utility_skill).png");
+		utils[1] = getResource("/berserker/Throw_Bolas.png");
+		utils[2] = getResource("/berserker/Bull's_Charge.png");
+		utils[3] = getResource("/berserker/Stomp.png");
 		
-		utils[4] = getResource("/tempest/Glyph_of_Elemental_Power.png");
-		utils[5] = getResource("/tempest/Glyph_of_Storms.png");
-		utils[6] = getResource("/tempest/Glyph_of_Lesser_Elementals.png");
-		utils[7] = getResource("/tempest/Glyph_of_Renewal.png");
+		utils[4] = getResource("/berserker/Signet_of_Might.png");
+		utils[5] = getResource("/berserker/Signet_of_Fury.png");
+		utils[6] = getResource("/berserker/Signet_of_Stamina.png");
+		utils[7] = getResource("/berserker/Dolyak_Signet.png");
 		
-		utils[8] = getResource("/tempest/Signet_of_Fire.png");
-		utils[9] = getResource("/tempest/Signet_of_Water.png");
-		utils[10] = getResource("/tempest/Signet_of_Air.png");
-		utils[11] = getResource("/tempest/Signet_of_Earth.png");
+		utils[8] = getResource("/berserker/'For_Great_Justice!'.png");
+		utils[9] = getResource("/berserker/'On_My_Mark!'.png");
+		utils[10] = getResource("/berserker/'On_My_Mark!'.png");
+		utils[11] = getResource("/berserker/'Fear_Me!'.png");
 		
-		utils[12] = getResource("/tempest/Cleansing_Fire.png");
-		utils[13] = getResource("/tempest/Mist_Form.png");
-		utils[14] = getResource("/tempest/Lightning_Flash.png");
-		utils[15] = getResource("/tempest/Armor_of_Earth.png");
+		utils[12] = getResource("/berserker/Banner_of_Defense.png");
+		utils[13] = getResource("/berserker/Banner_of_Strength.png");
+		utils[14] = getResource("/berserker/Banner_of_Discipline.png");
+		utils[15] = getResource("/berserker/Banner_of_Tactics.png");
 		
-		utils[16] = getResource("/tempest/Conjure_Flame_Axe.png");
-		utils[17] = getResource("/tempest/Conjure_Frost_Bow.png");
-		utils[18] = getResource("/tempest/Conjure_Lightning_Hammer.png");
-		utils[19] = getResource("/tempest/Conjure_Earth_Shield.png");
+		utils[16] = getResource("/berserker/Berserker_Stance.png");
+		utils[17] = getResource("/berserker/Endure_Pain.png");
+		utils[18] = getResource("/berserker/Balanced_Stance.png");
+		utils[19] = getResource("/berserker/Frenzy_(warrior_skill).png");
 		
-		utils[20] = getResource("/tempest/'Feel_the_Burn!'.png");
-		utils[21] = getResource("/tempest/'Flash-Freeze!'.png");
-		utils[22] = getResource("/tempest/'Eye_of_the_Storm!'.png");
-		utils[23] = getResource("/tempest/'Aftershock!'.png");
+		utils[20] = getResource("/berserker/Wild_Blow.png");
+		utils[21] = getResource("/berserker/Shattering_Blow.png");
+		utils[22] = getResource("/berserker/Sundering_Leap.png");
+		utils[23] = getResource("/berserker/Outrage.png");
 		
 		
 		
-		utilSkills.put(Profession.Tempest, utils);
+		utilSkills.put(Profession.Berserker, utils);
 
 		
 		URL[] elite = new URL[4];	
-		elite[0] = getResource("/tempest/Glyph_of_Elementals.png");
-		elite[1] = getResource("/tempest/Conjure_Fiery_Greatsword.png");
-		elite[2] = getResource("/tempest/Tornado.png");
-		elite[3] = getResource("/tempest/'Rebound!'.png");
-		eliteSkills.put(Profession.Tempest, elite);
+		elite[0] = getResource("/berserker/Battle_Standard.png");
+		elite[1] = getResource("/berserker/Signet_of_Rage.png");
+		elite[2] = getResource("/berserker/Rampage.png");
+		elite[3] = getResource("/berserker/Head_Butt.png");
+		eliteSkills.put(Profession.Berserker, elite);
 
-		URL[] tempestTraitlines = new URL[6];
-		tempestTraitlines[0] = getResource("/tempest/fire.png");
-		tempestTraitlines[1] = getResource("/tempest/air.png");
-		tempestTraitlines[2] = getResource("/tempest/earth.png");
-		tempestTraitlines[3] = getResource("/tempest/water.png");
-		tempestTraitlines[4] = getResource("/tempest/arcane.png");
-		tempestTraitlines[5] = getResource("/tempest/tempest.png");
-		traitlines.put(Profession.Tempest, tempestTraitlines);
+		URL[] berserkerTraitlines = new URL[6];
+		berserkerTraitlines[0] = getResource("/berserker/strength.png");
+		berserkerTraitlines[1] = getResource("/berserker/arms.png");
+		berserkerTraitlines[2] = getResource("/berserker/defense.png");
+		berserkerTraitlines[3] = getResource("/berserker/tactics.png");
+		berserkerTraitlines[4] = getResource("/berserker/diszipline.png");
+		berserkerTraitlines[5] = getResource("/berserker/berserker.png");
+		traitlines.put(Profession.Berserker, berserkerTraitlines);
 		
 	}
 	
