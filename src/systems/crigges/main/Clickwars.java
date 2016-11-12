@@ -23,9 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jnativehook.GlobalScreen;
@@ -54,6 +57,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Paint;
 import java.awt.Toolkit;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import java.awt.Image;
 
@@ -86,6 +90,7 @@ public class Clickwars {
 	private JComboBox<Object> interfaceBox;
 	private ClickBot clicker;
 	private JButton[][] traitlineTraits;
+	private JSpinner spinner;
 
 
 	/**
@@ -327,11 +332,14 @@ public class Clickwars {
 		
 		JLabel lblHotkeytoapply = new JLabel("Hotkey");
 		
-		JLabel lblLabel = new JLabel("Advanced Settings");
+		JLabel lblLabel = new JLabel("Delay (Global)");
 		
-		JButton button_2 = new JButton("???");
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		spinner = new JSpinner(new SpinnerNumberModel(new Integer(25), new Integer(1), new Integer(500), new Integer(1)));
+		spinner.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				clicker.setDefaultDelay((Integer) spinner.getValue());
 			}
 		});
 		GroupLayout gl_panel1 = new GroupLayout(panel1);
@@ -353,7 +361,7 @@ public class Clickwars {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel1.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
 					.addGap(33))
 		);
 		gl_panel1.setVerticalGroup(
@@ -370,7 +378,7 @@ public class Clickwars {
 						.addComponent(professionBox, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
 						.addComponent(interfaceBox, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(hotkeyButton, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel1.setLayout(gl_panel1);
