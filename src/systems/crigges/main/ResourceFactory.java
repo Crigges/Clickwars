@@ -22,6 +22,7 @@ public class ResourceFactory {
 		initTempest();
 		initBerserker();
 		initDaredevil();
+		initDruid();
 		return false;
 	}
 	
@@ -302,6 +303,65 @@ public class ResourceFactory {
 		daredevilTraitlines[4] = getResource("/daredevil/trickery.png");
 		daredevilTraitlines[5] = getResource("/daredevil/daredevil.png");
 		traitlines.put(Profession.Daredevil, daredevilTraitlines);
+		
+	}
+	
+	private static void initDruid() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/druid/'We_Heal_As_One!'.png");
+		heals[1] = getResource("/druid/Troll_Unguent.png");
+		heals[2] = getResource("/druid/Healing_Spring.png");
+		heals[3] = getResource("/druid/Water_Spirit.png");
+		heals[4] = getResource("/druid/Glyph_of_Rejuvenation.png");
+		healSkills.put(Profession.Druid, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/druid/Spike_Trap.png");
+		utils[1] = getResource("/druid/Flame_Trap.png");
+		utils[2] = getResource("/druid/Viper's_Nest.png");
+		utils[3] = getResource("/druid/Frost_Trap.png");
+		
+		utils[4] = getResource("/druid/Signet_of_Renewal.png");
+		utils[5] = getResource("/druid/Signet_of_the_Hunt.png");
+		utils[6] = getResource("/druid/Signet_of_Stone.png");
+		utils[7] = getResource("/druid/Signet_of_the_Wild.png");
+		
+		utils[8] = getResource("/druid/Sharpening_Stone.png");
+		utils[9] = getResource("/druid/Lightning_Reflexes.png");
+		utils[10] = getResource("/druid/Muddy_Terrain.png");
+		utils[11] = getResource("/druid/Quickening_Zephyr.png");
+		
+		utils[12] = getResource("/druid/Sun_Spirit.png");
+		utils[13] = getResource("/druid/Stone_Spirit.png");
+		utils[14] = getResource("/daredevil/Haste.png");
+		utils[15] = getResource("/druid/Storm_Spirit.png");
+		
+		utils[16] = getResource("/druid/'Sic_'Em!'.png");
+		utils[17] = getResource("/druid/'Protect_Me!'.png");
+		utils[18] = getResource("/druid/'Guard!'.png");
+		utils[19] = getResource("/druid/'Search_and_Rescue!'.png");
+		
+		utils[20] = getResource("/druid/Glyph_of_Alignment.png");
+		utils[21] = getResource("/druid/Glyph_of_Equality.png");
+		utils[22] = getResource("/druid/Glyph_of_Empowerment.png");
+		utils[23] = getResource("/druid/Glyph_of_the_Tides.png");
+		utilSkills.put(Profession.Druid, utils);
+
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/druid/'Strength_of_the_Pack!'.png");
+		elite[1] = getResource("/druid/Entangle.png");
+		elite[2] = getResource("/druid/Spirit_of_Nature.png");
+		elite[3] = getResource("/druid/Glyph_of_Unity.png");
+		eliteSkills.put(Profession.Druid, elite);
+
+		URL[] druidTraitlines = new URL[6];
+		druidTraitlines[0] = getResource("/druid/marksmanship.png");
+		druidTraitlines[1] = getResource("/druid/skirmishing.png");
+		druidTraitlines[2] = getResource("/druid/wilderness survival.png");
+		druidTraitlines[3] = getResource("/druid/nature magic.png");
+		druidTraitlines[4] = getResource("/druid/beastmastery.png");
+		druidTraitlines[5] = getResource("/druid/druid.png");
+		traitlines.put(Profession.Druid, druidTraitlines);
 		
 	}
 	
