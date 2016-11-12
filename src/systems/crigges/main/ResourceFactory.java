@@ -23,6 +23,8 @@ public class ResourceFactory {
 		initBerserker();
 		initDaredevil();
 		initDruid();
+		initHerald();
+		initDragonhunter();
 		return false;
 	}
 	
@@ -364,6 +366,87 @@ public class ResourceFactory {
 		traitlines.put(Profession.Druid, druidTraitlines);
 		
 	}
+	
+	private static void initHerald() {
+		URL[] heals = new URL[0];
+		healSkills.put(Profession.Herald, heals);
+		
+		URL[] utils  = new URL[0];
+		utilSkills.put(Profession.Herald, utils);
+
+		URL[] elite = new URL[0];	
+		eliteSkills.put(Profession.Herald, elite);
+
+		URL[] heraldTraitlines = new URL[6];
+		heraldTraitlines[0] = getResource("/revenant/corruption.png");
+		heraldTraitlines[1] = getResource("/revenant/retribution.png");
+		heraldTraitlines[2] = getResource("/revenant/salvation.png");
+		heraldTraitlines[3] = getResource("/revenant/invocation.png");
+		heraldTraitlines[4] = getResource("/revenant/devastation.png");
+		heraldTraitlines[5] = getResource("/revenant/herald.png");
+		traitlines.put(Profession.Herald, druidTraitlines);
+		
+	}
+	
+	private static void initDragonhunter() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/guard/Shelter.png");
+		heals[1] = getResource("/guard/Signet_of_Resolve.png");
+		heals[2] = getResource("/guard/'Receive_the_Light!'.png");
+		heals[3] = getResource("/guard/Litany_of_Wrath.png");
+		heals[4] = getResource("/guard/Purification.png");
+		healSkills.put(Profession.Dragonhunter, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/guard/Hammer_of_Wisdom.png");
+		utils[1] = getResource("/guard/Sword_of_Justice.png");
+		utils[2] = getResource("/guard/Bow_of_Truth.png");
+		utils[3] = getResource("/guard/Shield_of_the_Avenger.png");
+		
+		utils[4] = getResource("/guard/Bane_Signet.png");
+		utils[5] = getResource("/guard/Signet_of_Judgment.png");
+		utils[6] = getResource("/guard/Signet_of_Wrath.png");
+		utils[7] = getResource("/guard/Signet_of_Mercy.png");
+		
+		utils[8] = getResource("/guard/'Retreat!'.png");
+		utils[9] = getResource("/guard/'Save_Yourselves!'.png");
+		utils[10] = getResource("/guard/'Stand_Your_Ground!'.png");
+		utils[11] = getResource("/guard/'Hold_the_Line!'.png");
+		
+		utils[12] = getResource("/guard/Wall_of_Reflection.png");
+		utils[13] = getResource("/guard/Purging_Flames.png");
+		utils[14] = getResource("/guard/Hallowed_Ground.png");
+		utils[15] = getResource("/guard/Sanctuary.png");
+		
+		utils[16] = getResource("/guard/Smite_Condition.png");
+		utils[17] = getResource("/guard/Contemplation_of_Purity.png");
+		utils[18] = getResource("/guard/Judge's_Intervention.png");
+		utils[19] = getResource("/guard/Merciful_Intervention.png");
+		
+		utils[20] = getResource("/guard/Test_of_Faith.png");
+		utils[21] = getResource("/guard/Fragments_of_Faith.png");
+		utils[22] = getResource("/guard/Procession_of_Blades.png");
+		utils[23] = getResource("/guard/Light's_Judgment.png");
+		utilSkills.put(Profession.Dragonhunter, utils);
+
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/guard/'Feel_My_Wrath!'.png");
+		elite[1] = getResource("/guard/Renewed_Focus.png");
+		elite[2] = getResource("/guard/Signet_of_Courage.png");
+		elite[3] = getResource("/guard/Dragon's_Maw.png");
+		eliteSkills.put(Profession.Dragonhunter, elite);
+
+		URL[] guardTraitlines = new URL[6];
+		guardTraitlines[0] = getResource("/guard/zeal.png");
+		guardTraitlines[1] = getResource("/guard/radiance.png");
+		guardTraitlines[2] = getResource("/guard/valor.png");
+		guardTraitlines[3] = getResource("/guard/honor.png");
+		guardTraitlines[4] = getResource("/guard/virtues.png");
+		guardTraitlines[5] = getResource("/guard/dragonhunter.png");
+		traitlines.put(Profession.Dragonhunter, guardTraitlines);
+		
+	}
+
 	
 	public static URL getResource(String path){
 		return ResourceFactory.class.getResource(path);
