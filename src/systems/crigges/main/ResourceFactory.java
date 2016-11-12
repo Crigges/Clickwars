@@ -21,6 +21,7 @@ public class ResourceFactory {
 		initChrono();
 		initTempest();
 		initBerserker();
+		initDaredevil();
 		return false;
 	}
 	
@@ -107,12 +108,8 @@ public class ResourceFactory {
 		chronoUtils[21] = getResource("/chrono/Well_of_Calamity.png");
 		chronoUtils[22] = getResource("/chrono/Well_of_Recall.png");
 		chronoUtils[23] = getResource("/chrono/Well_of_Action.png");
-		
-		
-		
 		utilSkills.put(Profession.Chronomancer, chronoUtils);
 
-		
 		URL[] chronoElite = new URL[4];	
 		chronoElite[0] = getResource("/chrono/Signet_of_Humility.png");
 		chronoElite[1] = getResource("/chrono/Time_Warp.png");
@@ -170,12 +167,8 @@ public class ResourceFactory {
 		utils[21] = getResource("/tempest/'Flash-Freeze!'.png");
 		utils[22] = getResource("/tempest/'Eye_of_the_Storm!'.png");
 		utils[23] = getResource("/tempest/'Aftershock!'.png");
-		
-		
-		
 		utilSkills.put(Profession.Tempest, utils);
 
-		
 		URL[] elite = new URL[4];	
 		elite[0] = getResource("/tempest/Glyph_of_Elementals.png");
 		elite[1] = getResource("/tempest/Conjure_Fiery_Greatsword.png");
@@ -215,7 +208,7 @@ public class ResourceFactory {
 		utils[7] = getResource("/berserker/Dolyak_Signet.png");
 		
 		utils[8] = getResource("/berserker/'For_Great_Justice!'.png");
-		utils[9] = getResource("/berserker/'On_My_Mark!'.png");
+		utils[9] = getResource("/berserker/'Shake_It_Off!'.png");
 		utils[10] = getResource("/berserker/'On_My_Mark!'.png");
 		utils[11] = getResource("/berserker/'Fear_Me!'.png");
 		
@@ -233,12 +226,8 @@ public class ResourceFactory {
 		utils[21] = getResource("/berserker/Shattering_Blow.png");
 		utils[22] = getResource("/berserker/Sundering_Leap.png");
 		utils[23] = getResource("/berserker/Outrage.png");
-		
-		
-		
 		utilSkills.put(Profession.Berserker, utils);
 
-		
 		URL[] elite = new URL[4];	
 		elite[0] = getResource("/berserker/Battle_Standard.png");
 		elite[1] = getResource("/berserker/Signet_of_Rage.png");
@@ -257,6 +246,64 @@ public class ResourceFactory {
 		
 	}
 	
+	private static void initDaredevil() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/daredevil/Hide_in_Shadows.png");
+		heals[1] = getResource("/daredevil/Withdraw.png");
+		heals[2] = getResource("/daredevil/Skelk_Venom.png");
+		heals[3] = getResource("/daredevil/Signet_of_Malice.png");
+		heals[4] = getResource("/daredevil/Channeled_Vigor.png");
+		healSkills.put(Profession.Daredevil, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/daredevil/Spider_Venom.png");
+		utils[1] = getResource("/daredevil/Skale_Venom.png");
+		utils[2] = getResource("/daredevil/Ice_Drake_Venom.png");
+		utils[3] = getResource("/daredevil/Devourer_Venom.png");
+		
+		utils[4] = getResource("/daredevil/Tripwire.png");
+		utils[5] = getResource("/daredevil/Needle_Trap.png");
+		utils[6] = getResource("/daredevil/Shadow_Trap.png");
+		utils[7] = getResource("/daredevil/Ambush.png");
+		
+		utils[8] = getResource("/daredevil/Assassin's_Signet.png");
+		utils[9] = getResource("/daredevil/Infiltrator's_Signet.png");
+		utils[10] = getResource("/daredevil/Signet_of_Agility.png");
+		utils[11] = getResource("/daredevil/Signet_of_Shadows.png");
+		
+		utils[12] = getResource("/daredevil/Scorpion_Wire.png");
+		utils[13] = getResource("/daredevil/Roll_for_Initiative.png");
+		utils[14] = getResource("/daredevil/Haste.png");
+		utils[15] = getResource("/daredevil/Caltrops.png");
+		
+		utils[16] = getResource("/daredevil/Shadowstep.png");
+		utils[17] = getResource("/daredevil/Blinding_Powder.png");
+		utils[18] = getResource("/daredevil/Smoke_Screen.png");
+		utils[19] = getResource("/daredevil/Shadow_Refuge.png");
+		
+		utils[20] = getResource("/daredevil/Fist_Flurry.png");
+		utils[21] = getResource("/daredevil/Distracting_Daggers.png");
+		utils[22] = getResource("/daredevil/Bandit's_Defense.png");
+		utils[23] = getResource("/daredevil/Impairing_Daggers.png");
+		utilSkills.put(Profession.Daredevil, utils);
+
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/daredevil/Thieves_Guild.png");
+		elite[1] = getResource("/daredevil/Basilisk_Venom.png");
+		elite[2] = getResource("/daredevil/Dagger_Storm.png");
+		elite[3] = getResource("/daredevil/Impact_Strike.png");
+		eliteSkills.put(Profession.Daredevil, elite);
+
+		URL[] daredevilTraitlines = new URL[6];
+		daredevilTraitlines[0] = getResource("/daredevil/deadly arts.png");
+		daredevilTraitlines[1] = getResource("/daredevil/critical strikes.png");
+		daredevilTraitlines[2] = getResource("/daredevil/shadow arts.png");
+		daredevilTraitlines[3] = getResource("/daredevil/acrobatics.png");
+		daredevilTraitlines[4] = getResource("/daredevil/trickery.png");
+		daredevilTraitlines[5] = getResource("/daredevil/daredevil.png");
+		traitlines.put(Profession.Daredevil, daredevilTraitlines);
+		
+	}
 	
 	public static URL getResource(String path){
 		return ResourceFactory.class.getResource(path);
