@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class ClickBot {
-	private static final int defaultDelay = 25;
+	private static int defaultDelay = 25;
 	private static final int fadeDelay = 400;
 	private Robot robot;
 	private KeypointDetection detec;
@@ -164,6 +164,10 @@ public class ClickBot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setDefaultDelay(int d){
+		defaultDelay = d;
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
