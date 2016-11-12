@@ -25,6 +25,7 @@ public class ResourceFactory {
 		initDruid();
 		initHerald();
 		initDragonhunter();
+		initReaper();
 		return false;
 	}
 	
@@ -384,7 +385,7 @@ public class ResourceFactory {
 		heraldTraitlines[3] = getResource("/revenant/invocation.png");
 		heraldTraitlines[4] = getResource("/revenant/devastation.png");
 		heraldTraitlines[5] = getResource("/revenant/herald.png");
-		traitlines.put(Profession.Herald, druidTraitlines);
+		traitlines.put(Profession.Herald, heraldTraitlines);
 		
 	}
 	
@@ -444,6 +445,65 @@ public class ResourceFactory {
 		guardTraitlines[4] = getResource("/guard/virtues.png");
 		guardTraitlines[5] = getResource("/guard/dragonhunter.png");
 		traitlines.put(Profession.Dragonhunter, guardTraitlines);
+		
+	}
+	
+	private static void initReaper() {
+		URL[] heals = new URL[5];
+		heals[0] = getResource("/reaper/Summon_Blood_Fiend.png");
+		heals[1] = getResource("/reaper/Consume_Conditions.png");
+		heals[2] = getResource("/reaper/Well_of_Blood.png");
+		heals[3] = getResource("/reaper/Signet_of_Vampirism.png");
+		heals[4] = getResource("/reaper/'Your_Soul_Is_Mine!'.png");
+		healSkills.put(Profession.Reaper, heals);
+		
+		URL[] utils  = new URL[24];
+		utils[0] = getResource("/reaper/Summon_Bone_Minions.png");
+		utils[1] = getResource("/reaper/Summon_Bone_Fiend.png");
+		utils[2] = getResource("/reaper/Summon_Shadow_Fiend.png");
+		utils[3] = getResource("/reaper/Summon_Flesh_Wurm.png");
+	
+		utils[4] = getResource("/reaper/Well_of_Suffering.png");
+		utils[5] = getResource("/reaper/Well_of_Corruption.png");
+		utils[6] = getResource("/reaper/Well_of_Power.png");
+		utils[7] = getResource("/reaper/Well_of_Darkness.png");
+		
+		utils[8] = getResource("/reaper/Signet_of_Spite.png");
+		utils[9] = getResource("/reaper/Signet_of_the_Locust.png");
+		utils[10] = getResource("/reaper/Plague_Signet.png");
+		utils[11] = getResource("/reaper/Signet_of_Undeath.png");
+		
+		utils[12] = getResource("/reaper/Spectral_Armor.png");
+		utils[13] = getResource("/reaper/Spectral_Grasp.png");
+		utils[14] = getResource("/reaper/Spectral_Wall.png");
+		utils[15] = getResource("/reaper/Spectral_Walk.png");
+		
+		utils[16] = getResource("/reaper/Corrosive_Poison_Cloud.png");
+		utils[17] = getResource("/reaper/Epidemic.png");
+		utils[18] = getResource("/reaper/Corrupt_Boon.png");
+		utils[19] = getResource("/reaper/Blood_Is_Power.png");
+		
+		utils[20] = getResource("/reaper/'You_Are_All_Weaklings!'.png");
+		utils[21] = getResource("/reaper/'Suffer!'.png");
+		utils[22] = getResource("/reaper/'Nothing_Can_Save_You!'.png");
+		utils[23] = getResource("/reaper/'Rise!'.png");
+		utilSkills.put(Profession.Reaper, utils);
+
+		URL[] elite = new URL[4];	
+		elite[0] = getResource("/reaper/Plague.png");
+		elite[1] = getResource("/reaper/Summon_Flesh_Golem.png");
+		elite[2] = getResource("/reaper/Lich_Form.png");
+		elite[3] = getResource("/reaper/'Rise!'.png");
+		eliteSkills.put(Profession.Reaper, elite);
+
+		URL[] reaperTraitlines = new URL[6];
+		reaperTraitlines[0] = getResource("/reaper/spite.png");
+		reaperTraitlines[1] = getResource("/reaper/curses.png");
+		reaperTraitlines[2] = getResource("/reaper/death magic.png");
+		reaperTraitlines[3] = getResource("/reaper/blood magic.png");
+		reaperTraitlines[4] = getResource("/reaper/soul reaping.png");
+		reaperTraitlines[5] = getResource("/reaper/reaper.png");
+		traitlines.put(Profession.Reaper, reaperTraitlines);
 		
 	}
 
