@@ -337,7 +337,7 @@ public class ResourceFactory {
 		
 		utils[12] = getResource("/druid/Sun_Spirit.png");
 		utils[13] = getResource("/druid/Stone_Spirit.png");
-		utils[14] = getResource("/daredevil/Haste.png");
+		utils[14] = getResource("/druid/Frost_Spirit.png");
 		utils[15] = getResource("/druid/Storm_Spirit.png");
 		
 		utils[16] = getResource("/druid/'Sic_'Em!'.png");
