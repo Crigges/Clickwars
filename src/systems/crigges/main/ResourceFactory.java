@@ -494,7 +494,7 @@ public class ResourceFactory {
 		elite[0] = getResource("/reaper/Plague.png");
 		elite[1] = getResource("/reaper/Summon_Flesh_Golem.png");
 		elite[2] = getResource("/reaper/Lich_Form.png");
-		elite[3] = getResource("/reaper/'Rise!'.png");
+		elite[3] = getResource("/reaper/'Chilled_to_the_Bone!'.png");
 		eliteSkills.put(Profession.Reaper, elite);
 
 		URL[] reaperTraitlines = new URL[6];
