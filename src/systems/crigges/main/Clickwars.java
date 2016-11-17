@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
@@ -67,6 +68,11 @@ import javax.swing.Action;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class Clickwars {
 
@@ -92,6 +98,8 @@ public class Clickwars {
 	private JPanel mainPanel;
 	private DefaultTableModel tableModel;
 	private JPanel panel_1;
+	private JLabel[] equipmentLabels;
+	private JButton[] equipmentButtons;
 
 	/**
 	 * Launch the application.
@@ -448,21 +456,21 @@ public class Clickwars {
 		profileTable.getColumnModel().getColumn(2).setPreferredWidth(116);
 		scrollPane.setViewportView(profileTable);
 		panel.setLayout(gl_panel);
-		GroupLayout gl_panel2 = new GroupLayout(panel2);
-		gl_panel2.setHorizontalGroup(gl_panel2.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
-				gl_panel2.createSequentialGroup().addContainerGap().addComponent(buttonSlots[0])
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[1])
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[2])
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[3])
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[4])
-						.addContainerGap(81, Short.MAX_VALUE)));
-		gl_panel2.setVerticalGroup(gl_panel2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel2.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING).addComponent(buttonSlots[0])
-								.addComponent(buttonSlots[4]).addComponent(buttonSlots[1]).addComponent(buttonSlots[2])
-								.addComponent(buttonSlots[3]))
-						.addContainerGap(130, Short.MAX_VALUE)));
-		panel2.setLayout(gl_panel2);
+//		GroupLayout gl_panel2 = new GroupLayout(panel2);
+//		gl_panel2.setHorizontalGroup(gl_panel2.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+//				gl_panel2.createSequentialGroup().addContainerGap().addComponent(buttonSlots[0])
+//						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[1])
+//						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[2])
+//						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[3])
+//						.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonSlots[4])
+//						.addContainerGap(81, Short.MAX_VALUE)));
+//		gl_panel2.setVerticalGroup(gl_panel2.createParallelGroup(Alignment.LEADING)
+//				.addGroup(gl_panel2.createSequentialGroup().addContainerGap()
+//						.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING).addComponent(buttonSlots[0])
+//								.addComponent(buttonSlots[4]).addComponent(buttonSlots[1]).addComponent(buttonSlots[2])
+//								.addComponent(buttonSlots[3]))
+//						.addContainerGap(130, Short.MAX_VALUE)));
+//		panel2.setLayout(gl_panel2);
 
 		panel3 = new JPanel();
 		panel3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Traits", TitledBorder.LEADING,
@@ -472,37 +480,245 @@ public class Clickwars {
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Equpment", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		GroupLayout gl_mainPanel = new GroupLayout(mainPanel);
-		gl_mainPanel.setHorizontalGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_mainPanel.createSequentialGroup().addContainerGap()
-						.addGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-								.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_mainPanel.createSequentialGroup().addGap(3).addComponent(panel1,
-								GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE))
+		gl_mainPanel.setHorizontalGroup(
+			gl_mainPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_mainPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_mainPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_mainPanel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE))
 						.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 714, GroupLayout.PREFERRED_SIZE))
-				.addGap(17)));
-		gl_mainPanel.setVerticalGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_mainPanel
-				.createSequentialGroup().addGap(16)
-				.addGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING)
+					.addGap(17))
+		);
+		gl_mainPanel.setVerticalGroup(
+			gl_mainPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_mainPanel.createSequentialGroup()
+					.addGap(16)
+					.addGroup(gl_mainPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_mainPanel.createSequentialGroup()
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE))
-						.addGroup(
-								gl_mainPanel.createSequentialGroup()
-										.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(16)
-										.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(16)
-										.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 501,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(0, 0, Short.MAX_VALUE)))
-				.addContainerGap()));
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_mainPanel.createSequentialGroup()
+							.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+							.addGap(16)
+							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+							.addGap(16)
+							.addComponent(panel3, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
+							.addGap(0, 0, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		
+		BackgroundPanel backgroundPanel = new BackgroundPanel((Paint) null);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addComponent(backgroundPanel, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(448, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(backgroundPanel, GroupLayout.PREFERRED_SIZE, 353, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		
+		
+		equipmentButtons = new JButton[16];
+		equipmentLabels = new JLabel[16];
+		
+		JButton headButton = new JButton("");
+		headButton.setBounds(40, 16, 54, 54);
+		headButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/head.png")));
+		equipmentButtons[0] = headButton;
+		
+		JButton shoulderButton = new JButton("");
+		shoulderButton.setBounds(40, 79, 54, 54);
+		shoulderButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/shoulder.png")));
+		equipmentButtons[1] = shoulderButton;
+		
+		JButton chestButton = new JButton("");
+		chestButton.setBounds(40, 142, 54, 54);
+		chestButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/chest.png")));
+		equipmentButtons[2] = chestButton;
+		
+		JButton handsButton = new JButton("");
+		handsButton.setBounds(136, 16, 54, 54);
+		handsButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/hands.png")));
+		equipmentButtons[3] = handsButton;
+		
+		JButton legginsButton = new JButton("");
+		legginsButton.setBounds(136, 79, 54, 54);
+		legginsButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/leggins.png")));
+		equipmentButtons[4] = legginsButton;
+		
+		JButton bootsButton = new JButton("");
+		bootsButton.setBounds(136, 142, 54, 54);
+		bootsButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/boots.png")));
+		equipmentButtons[5] = bootsButton;
+		
+		JButton mainhand1Button = new JButton("");
+		mainhand1Button.setBounds(40, 219, 54, 54);
+		mainhand1Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/mainhand.png")));
+		equipmentButtons[6] = mainhand1Button;
+		
+		JButton offhand1Button = new JButton("");
+		offhand1Button.setBounds(134, 219, 54, 54);
+		offhand1Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/offhand.png")));
+		equipmentButtons[7] = offhand1Button;
+		
+		JButton mainhand2Button = new JButton("");
+		mainhand2Button.setBounds(40, 282, 54, 54);
+		mainhand2Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/mainhand.png")));
+		equipmentButtons[8] = mainhand2Button;
+		
+		JButton offhand2Button = new JButton("");
+		offhand2Button.setBounds(134, 282, 54, 54);
+		offhand2Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/offhand.png")));
+		equipmentButtons[9] = offhand2Button;
+		
+		JButton backButton = new JButton("");
+		backButton.setBounds(280, 205, 54, 54);
+		backButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/back.png")));
+		equipmentButtons[10] = backButton;
+		
+		JButton acc1Button = new JButton("");
+		acc1Button.setBounds(280, 79, 54, 54);
+		acc1Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/acc1.png")));
+		equipmentButtons[11] = acc1Button;
+		
+		JButton acc2Button = new JButton("");
+		acc2Button.setBounds(377, 79, 54, 54);
+		acc2Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/acc2.png")));
+		equipmentButtons[12] = acc2Button;
+
+		JButton amulettButton = new JButton("");
+		amulettButton.setBounds(377, 205, 54, 54);
+		amulettButton.setIcon(new ImageIcon(Clickwars.class.getResource("/other/amulet.png")));
+		equipmentButtons[13] = amulettButton;
+		
+		JButton ring1Button = new JButton("");
+		ring1Button.setBounds(280, 142, 54, 54);
+		ring1Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/ring1.png")));
+		equipmentButtons[14] = ring1Button;
+		
+		JButton ring2Button = new JButton("");
+		ring2Button.setBounds(377, 142, 54, 54);
+		ring2Button.setIcon(new ImageIcon(Clickwars.class.getResource("/other/ring2.png")));
+		equipmentButtons[15] = ring2Button;
+		
+	
+		
+		JLabel headLabel = new JLabel("0");
+		headLabel.setBounds(15, 16, 25, 54);
+		equipmentLabels[0] = headLabel;
+		
+		JLabel shoulderLabel = new JLabel("0");
+		shoulderLabel.setBounds(15, 79, 25, 54);
+		equipmentLabels[1] = shoulderLabel;
+		
+		JLabel chestLabel = new JLabel("0");
+		chestLabel.setBounds(15, 142, 25, 54);
+		equipmentLabels[2] = chestLabel;
+		
+		JLabel handsLabel = new JLabel("0");
+		handsLabel.setBounds(111, 16, 25, 54);
+		equipmentLabels[3] = handsLabel;
+		
+		JLabel legginsLabel = new JLabel("0");
+		legginsLabel.setBounds(111, 79, 25, 54);
+		equipmentLabels[4] = legginsLabel;
+		
+		JLabel bootsLabel = new JLabel("0");
+		bootsLabel.setBounds(111, 142, 25, 54);
+		equipmentLabels[5] = bootsLabel;
+		
+		JLabel mainhand1Label = new JLabel("0");
+		mainhand1Label.setBounds(15, 219, 25, 54);
+		equipmentLabels[6] = mainhand1Label;
+		
+		JLabel offhand1Label = new JLabel("0");
+		offhand1Label.setBounds(111, 220, 25, 53);
+		equipmentLabels[7] = offhand1Label;
+		
+		JLabel mainhand2Label = new JLabel("0");
+		mainhand2Label.setBounds(15, 282, 25, 54);
+		equipmentLabels[8] = mainhand2Label;
+		
+		JLabel offhand2Label = new JLabel("0");
+		offhand2Label.setBounds(111, 282, 25, 54);
+		equipmentLabels[9] = offhand2Label;
+		
+		JLabel backLabel = new JLabel("0");
+		backLabel.setBounds(255, 205, 25, 54);
+		equipmentLabels[10] = backLabel;
+		
+		JLabel acc1Label = new JLabel("0");
+		acc1Label.setBounds(255, 79, 25, 54);
+		equipmentLabels[11] = acc1Label;
+		
+		JLabel acc2Label = new JLabel("0");
+		acc2Label.setBounds(352, 79, 25, 54);
+		equipmentLabels[12] = acc2Label;
+		
+		JLabel amuletLabel = new JLabel("0");
+		amuletLabel.setBounds(352, 205, 25, 54);
+		equipmentLabels[13] = amuletLabel;
+		
+		JLabel ring1Label = new JLabel("0");
+		ring1Label.setBounds(255, 142, 25, 54);
+		equipmentLabels[14] = ring1Label;
+		
+		JLabel ring2Label = new JLabel("0");
+		ring2Label.setBounds(352, 142, 25, 54);
+		equipmentLabels[15] = ring2Label;
+		
+		for (int i = 0; i < equipmentButtons.length; i++) {
+			equipmentButtons[i].setContentAreaFilled(false);
+			equipmentButtons[i].addMouseListener(new EquipmentButtonListener(equipmentLabels[i], i));
+		}
+		
+		backgroundPanel.setLayout(null);
+		backgroundPanel.add(headLabel);
+		backgroundPanel.add(chestLabel);
+		backgroundPanel.add(shoulderLabel);
+		backgroundPanel.add(shoulderButton);
+		backgroundPanel.add(headButton);
+		backgroundPanel.add(chestButton);
+		backgroundPanel.add(handsLabel);
+		backgroundPanel.add(legginsLabel);
+		backgroundPanel.add(bootsLabel);
+		backgroundPanel.add(legginsButton);
+		backgroundPanel.add(handsButton);
+		backgroundPanel.add(bootsButton);
+		backgroundPanel.add(mainhand1Label);
+		backgroundPanel.add(mainhand2Label);
+		backgroundPanel.add(mainhand2Button);
+		backgroundPanel.add(offhand2Label);
+		backgroundPanel.add(mainhand1Button);
+		backgroundPanel.add(offhand1Label);
+		backgroundPanel.add(offhand1Button);
+		backgroundPanel.add(offhand2Button);
+		backgroundPanel.add(ring1Label);
+		backgroundPanel.add(ring1Button);
+		backgroundPanel.add(acc1Label);
+		backgroundPanel.add(acc1Button);
+		backgroundPanel.add(backLabel);
+		backgroundPanel.add(backButton);
+		backgroundPanel.add(acc2Label);
+		backgroundPanel.add(amuletLabel);
+		backgroundPanel.add(ring2Label);
+		backgroundPanel.add(acc2Button);
+		backgroundPanel.add(ring2Button);
+		backgroundPanel.add(amulettButton);
+		panel_1.setLayout(gl_panel_1);
 		mainPanel.setLayout(gl_mainPanel);
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Name", "Profession", "Hotkey" });
@@ -559,27 +775,27 @@ public class Clickwars {
 				groupPos++;
 			}
 		}
-		GroupLayout gl_panel3 = new GroupLayout(panel3);
-		gl_panel3.setHorizontalGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
-								.addComponent(traitlines[0], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663,
-										Short.MAX_VALUE)
-						.addComponent(traitlines[1], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
-						.addComponent(traitlines[2], GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
-				.addContainerGap()));
-		gl_panel3.setVerticalGroup(gl_panel3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
-						.addComponent(traitlines[0], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(traitlines[1], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(traitlines[2],
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(16, Short.MAX_VALUE)));
+//		GroupLayout gl_panel3 = new GroupLayout(panel3);
+//		gl_panel3.setHorizontalGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
+//				.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
+//						.addGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
+//								.addComponent(traitlines[0], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663,
+//										Short.MAX_VALUE)
+//						.addComponent(traitlines[1], Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+//						.addComponent(traitlines[2], GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
+//				.addContainerGap()));
+//		gl_panel3.setVerticalGroup(gl_panel3.createParallelGroup(Alignment.LEADING)
+//				.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
+//						.addComponent(traitlines[0], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+//								GroupLayout.PREFERRED_SIZE)
+//						.addPreferredGap(ComponentPlacement.RELATED)
+//						.addComponent(traitlines[1], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+//								GroupLayout.PREFERRED_SIZE)
+//						.addPreferredGap(ComponentPlacement.RELATED).addComponent(traitlines[2],
+//								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+//				.addContainerGap(16, Short.MAX_VALUE)));
 
-		panel3.setLayout(gl_panel3);
+//		panel3.setLayout(gl_panel3);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -594,6 +810,42 @@ public class Clickwars {
 		});
 		mnNewMenu.add(mntmExit);
 
+	}
+	
+	private class EquipmentButtonListener implements MouseListener {
+		private JLabel label;
+		private int slot;		
+
+		public EquipmentButtonListener(JLabel label, int slot) {
+			this.label = label;
+			this.slot = slot;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+
+		@Override
+		public void mouseExited(MouseEvent e) {}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			if(SwingUtilities.isRightMouseButton(e)){
+				int i = Integer.parseInt(label.getText());
+				if(i > 0){
+					label.setText(i - 1 + "");
+				}
+			}else{
+				label.setText(Integer.parseInt(label.getText()) + 1 + "");
+			}
+			currentProfile.setEquipmetPos(slot, Integer.parseInt(label.getText()));
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		
 	}
 
 	private class SkillSlotListener implements ActionListener {
@@ -700,6 +952,10 @@ public class Clickwars {
 				sel++;
 			}
 
+		}
+		int eqPos[] = p.getAllEquipmentPos();
+		for(int i = 0; i < eqPos.length; i++){
+			equipmentLabels[i].setText(eqPos[i] + "");
 		}
 	}
 }

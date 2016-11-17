@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Profile implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private static transient ArrayList list;
 	
@@ -24,6 +24,7 @@ public class Profile implements Serializable{
 	private int[] skillPos;
 	private int[] traitlinePos;
 	private int[] traitPos;
+	private int[] equipmentPos;
 	private String name = "?";
 	private String hotkeyName = "?";
 
@@ -43,6 +44,7 @@ public class Profile implements Serializable{
 		initArray(traitlinePos);
 		traitPos = new int[9];
 		initArray(traitPos);
+		equipmentPos = new int[16];
 	}
 
 	public int getHotkeyCode() {
@@ -104,6 +106,11 @@ public class Profile implements Serializable{
 
 	public void setTraitPos(int slot, int value) {
 		traitPos[slot] = value;
+		saveProfiles();
+	}
+	
+	public void setEquipmetPos(int slot, int value){
+		equipmentPos[slot] = value;
 		saveProfiles();
 	}
 	
@@ -181,6 +188,10 @@ public class Profile implements Serializable{
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = -1;
 		}
+	}
+
+	public int[] getAllEquipmentPos() {
+		return equipmentPos;
 	}
 
 }
